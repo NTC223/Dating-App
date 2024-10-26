@@ -30,7 +30,7 @@ import java.sql.DatabaseMetaData;
 
 public class RegistationActivity extends AppCompatActivity {
 
-    private Button mRegister;
+    private Button mRegister, mBack;
     private EditText mEmail, mPassword ,mName;
 
     private RadioGroup mRadioGroup;
@@ -59,6 +59,7 @@ public class RegistationActivity extends AppCompatActivity {
 
 
         mRegister = (Button) findViewById(R.id.register);
+        mBack = (Button) findViewById(R.id.back);
 
         mEmail = (EditText) findViewById(R.id.email);
         mPassword = (EditText) findViewById(R.id.password);
@@ -93,6 +94,13 @@ public class RegistationActivity extends AppCompatActivity {
                         }
                     }
                 });
+            }
+        });
+
+        mBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
             }
         });
     }

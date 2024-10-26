@@ -22,7 +22,7 @@ import com.google.firebase.auth.FirebaseUser;
 
 public class LoginActivity extends AppCompatActivity {
 
-    private Button mLogin;
+    private Button mLogin, mBack;
     private EditText mEmail, mPassword;
 
     private FirebaseAuth mAuth;
@@ -49,6 +49,7 @@ public class LoginActivity extends AppCompatActivity {
 
 
         mLogin = (Button) findViewById(R.id.login);
+        mBack = (Button) findViewById(R.id.back);
 
         mEmail = (EditText) findViewById(R.id.email);
         mPassword = (EditText) findViewById(R.id.password);
@@ -66,6 +67,14 @@ public class LoginActivity extends AppCompatActivity {
                         }
                     }
                 });
+            }
+        });
+
+        mBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+                return;
             }
         });
     }

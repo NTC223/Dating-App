@@ -42,5 +42,10 @@
         android:layout_height="wrap_content"
         android:text="Register"
         android:id="@+id/register"/>
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Back"
+        android:id="@+id/back"/>
 
 </LinearLayout>
