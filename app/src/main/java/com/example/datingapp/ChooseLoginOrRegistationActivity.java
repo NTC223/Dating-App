@@ -17,11 +17,14 @@ import com.google.firebase.auth.FirebaseUser;
 public class ChooseLoginOrRegistationActivity extends AppCompatActivity {
 
     private Button mLogin, mRegister;
+
+    private FirebaseUser currentUser;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
+        currentUser = FirebaseAuth.getInstance().getCurrentUser();
         if (currentUser != null) {
             Intent intent = new Intent(ChooseLoginOrRegistationActivity.this, MainActivity.class);
             startActivity(intent);
