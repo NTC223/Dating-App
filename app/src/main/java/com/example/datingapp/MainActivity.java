@@ -7,6 +7,7 @@ import android.sax.StartElementListener;
 import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.ListView;
 import android.widget.Toast;
 
 //import androidx.activity.enableEdgeToEdge;
@@ -23,30 +24,41 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.lorentzos.flingswipe.SwipeFlingAdapterView;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
-    private ArrayList<String> al;
-    private ArrayAdapter<String> arrayAdapter;
+    private cards cards_data[];
+    private arrayAdapter arrayAdapter;
     private int i;
 
     private FirebaseAuth mAuth;
+
+    private String currentUid;
+
+    private DatabaseReference usersDb;
+
+    ListView listView;
+    List<cards> rowItems;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        usersDb = FirebaseDatabase.getInstance().getReference().child("Users");
+
         mAuth = FirebaseAuth.getInstance();
+        currentUid = mAuth.getCurrentUser().getUid();
 
         checkUserSex();
 
+        rowItems = new ArrayList<cards>();
 
-
-        al = new ArrayList<>();
-
-        arrayAdapter = new ArrayAdapter<>(this, R.layout.item, R.id.helloText, al );
+        arrayAdapter = new arrayAdapter(this, R.layout.item, rowItems);
 
         SwipeFlingAdapterView flingContainer = (SwipeFlingAdapterView) findViewById(R.id.frame);
 
@@ -56,22 +68,25 @@ public class MainActivity extends AppCompatActivity {
             public void removeFirstObjectInAdapter() {
                 // this is the simplest way to delete an object from the Adapter (/AdapterView)
                 Log.d("LIST", "removed object!");
-                al.remove(0);
+                rowItems.remove(0);
                 arrayAdapter.notifyDataSetChanged();
             }
 
             @Override
             public void onLeftCardExit(Object dataObject) {
-                //Do something on the left!
-                //You also have access to the original object.
-                //If you want to use it just cast it (String) dataObject
+                cards obj = (cards) dataObject;
+                String userId = obj.getUserId();
+                usersDb.child(oppositeUserSex).child(userId).child("connections").child("nope").child(currentUid).setValue(true);
                 Toast.makeText(MainActivity.this, "Left!", Toast.LENGTH_SHORT).show();
             }
 
             @Override
             public void onRightCardExit(Object dataObject) {
+                cards obj = (cards) dataObject;
+                String userId = obj.getUserId();
+                usersDb.child(oppositeUserSex).child(userId).child("connections").child("yeps").child(currentUid).setValue(true);
+                isConnectionMatch(userId);
                 Toast.makeText(MainActivity.this, "Right!", Toast.LENGTH_SHORT).show();
-
             }
 
             @Override
@@ -94,7 +109,25 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
+    }
 
+    private void isConnectionMatch(String userId){
+        DatabaseReference currentUserConnectionsDb = usersDb.child(userSex).child(currentUid).child("connections").child("yeps").child(userId);
+        currentUserConnectionsDb.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if(snapshot.exists()){
+                    Toast.makeText(MainActivity.this, "new Connection", Toast.LENGTH_SHORT).show();
+                    usersDb.child(oppositeUserSex).child(snapshot.getKey()).child("connections").child("matches").child(currentUid).setValue(true);
+                    usersDb.child(userSex).child(currentUid).child("connections").child("matches").child(snapshot.getKey()).setValue(true);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
     }
 
     private String userSex;
@@ -172,8 +205,9 @@ public class MainActivity extends AppCompatActivity {
         oppositeSexDb.addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
-                if (snapshot.exists()){
-                    al.add(snapshot.child("name").getValue().toString());
+                if (snapshot.exists() && !snapshot.child("connections").child("nope").hasChild(currentUid) && !snapshot.child("connections").child("yeps").hasChild(currentUid)){
+                    cards item = new cards(snapshot.getKey(), snapshot.child("name").getValue().toString());
+                    rowItems.add(item);
                     arrayAdapter.notifyDataSetChanged();
                 }
             }
@@ -203,6 +237,14 @@ public class MainActivity extends AppCompatActivity {
     public void logoutUser(View view){
         mAuth.signOut();
         Intent intent = new Intent(MainActivity.this, ChooseLoginOrRegistationActivity.class);
+        startActivity(intent);
+        finish();
+        return;
+    }
+
+    public void goToSettings(View view){
+        Intent intent = new Intent(MainActivity.this, SettingsActivity.class);
+        intent.putExtra("userSex", userSex);
         startActivity(intent);
         finish();
         return;
