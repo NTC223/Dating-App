@@ -246,7 +246,6 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = new Intent(MainActivity.this, SettingsActivity.class);
         intent.putExtra("userSex", userSex);
         startActivity(intent);
-        finish();
         return;
     }
 }

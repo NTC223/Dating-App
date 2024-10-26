@@ -40,11 +40,12 @@ android {
 }
 
 dependencies {
-    // https://mvnrepository.com/artifact/com.lorentzos.swipecards/library
     implementation("com.lorentzos.swipecards:library:1.0.9")
 
     implementation ("com.google.firebase:firebase-auth:18.0.0")
     implementation ("com.google.android.gms:play-services-gcm:17.0.0")
+    implementation ("com.google.firebase:firebase-storage:21.0.1")
+    implementation("com.github.bumptech.glide:glide:4.15.1")
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
@@ -54,6 +55,7 @@ dependencies {
     implementation(libs.firebase.database)
     implementation(libs.androidx.navigation.fragment.ktx)
     implementation(libs.androidx.navigation.ui.ktx)
+    implementation(libs.firebase.storage)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
