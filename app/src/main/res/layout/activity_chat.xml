@@ -7,9 +7,11 @@
     android:layout_height="match_parent"
     tools:context=".Chat.ChatActivity"
     android:orientation="vertical">
+
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:layout_above="@+id/sendLayout">
         <androidx.recyclerview.widget.RecyclerView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -17,15 +19,19 @@
             android:scrollbars="vertical">
         </androidx.recyclerview.widget.RecyclerView>
     </androidx.core.widget.NestedScrollView>
+
     <LinearLayout
+        android:id="@+id/sendLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true">
+        android:layout_alignParentBottom="true"
+        android:orientation="horizontal">
         <EditText
             android:layout_weight="0.8"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:hint="message..."/>
+            android:hint="message..."
+            android:id="@+id/message"/>
         <Button
             android:layout_weight="0.2"
             android:layout_width="0dp"
@@ -33,5 +39,10 @@
             android:text="Send"
             android:id="@+id/send"/>
     </LinearLayout>
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Back"
+        android:id="@+id/back"/>
 
 </RelativeLayout>

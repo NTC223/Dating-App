@@ -1,6 +1,8 @@
 package com.example.datingapp.Matches;
 
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
 
 import androidx.activity.EdgeToEdge;
 import androidx.annotation.NonNull;
@@ -28,6 +30,7 @@ public class MatchesActivity extends AppCompatActivity {
     private RecyclerView.Adapter mMatchesAdapter;
     private RecyclerView.LayoutManager mMatchesLayoutManager;
     private String currentUserId;
+    private Button mBack;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,8 +47,16 @@ public class MatchesActivity extends AppCompatActivity {
         mRecyclerView.setLayoutManager(mMatchesLayoutManager);
         mMatchesAdapter = new MatchesAdapter(getDataSetMatches(), MatchesActivity.this);
         mRecyclerView.setAdapter(mMatchesAdapter);
+        mBack = findViewById(R.id.back);
 
         getUserMatchId();
+
+        mBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
     }
 
     private void getUserMatchId() {
