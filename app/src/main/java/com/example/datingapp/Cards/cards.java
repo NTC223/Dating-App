@@ -1,4 +1,4 @@
-package com.example.datingapp;
+package com.example.datingapp.Cards;
 
 public class cards {
     private String userId;
