@@ -3,15 +3,16 @@ package com.example.datingapp;
 public class cards {
     private String userId;
     private String name;
-    public cards(String userId, String name){
+    private String profileImageUrl;
+    public cards(String userId, String name, String profileImageUrl){
         this.userId = userId;
         this.name = name;
+        this.profileImageUrl = profileImageUrl;
     }
 
     public String getUserId(){
         return this.userId;
     }
-
     public void setUserId(String userId){
         this.userId = userId;
     }
@@ -19,8 +20,15 @@ public class cards {
     public String getName(){
         return this.name;
     }
-
     public void setName(String name){
         this.name = name;
     }
+
+    public String getProfileImageUrl(){
+        return this.profileImageUrl;
+    }
+    public void setProfileImageUrl(String profileImageUrl){
+        this.profileImageUrl = profileImageUrl;
+    }
+
 }

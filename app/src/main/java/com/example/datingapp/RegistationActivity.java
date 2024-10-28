@@ -27,6 +27,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import java.sql.DatabaseMetaData;
+import java.util.HashMap;
+import java.util.Map;
 
 public class RegistationActivity extends AppCompatActivity {
 
@@ -89,8 +91,12 @@ public class RegistationActivity extends AppCompatActivity {
                             Toast.makeText(RegistationActivity.this, "sign up error", Toast.LENGTH_SHORT).show();
                         }else{
                             String userId = mAuth.getCurrentUser().getUid();
-                            DatabaseReference currentUserDb = FirebaseDatabase.getInstance().getReference().child("Users").child(radioButton.getText().toString()).child(userId).child("name");
-                            currentUserDb.setValue(name);
+                            DatabaseReference currentUserDb = FirebaseDatabase.getInstance().getReference().child("Users").child(userId);
+                            Map userInfo = new HashMap<>();
+                            userInfo.put("name", name);
+                            userInfo.put("sex",radioButton.getText().toString());
+                            userInfo.put("profileImageUrl","default");
+                            currentUserDb.updateChildren(userInfo);
                         }
                     }
                 });
