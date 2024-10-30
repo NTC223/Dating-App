@@ -42,7 +42,7 @@ import java.util.Map;
 
 public class SettingsActivity extends AppCompatActivity {
 
-    private EditText mNameField, mPhoneField;
+    private EditText mNameField, mPhoneField, mAgeField, mEducationField, mPetField, mBioFiled, mLookingforField;
 
     private Button mBack, mConfirm;
 
@@ -51,7 +51,7 @@ public class SettingsActivity extends AppCompatActivity {
     private FirebaseAuth mAuth;
     private DatabaseReference mUserDatabase;
 
-    private String userId, name, phone, profileImageUrl, userSex;
+    private String userId, name, phone, profileImageUrl, userSex, age, education, pet, bio, lookingfor;
 
     private Uri resultUri;
 
@@ -62,6 +62,11 @@ public class SettingsActivity extends AppCompatActivity {
 
         mNameField = (EditText) findViewById(R.id.name);
         mPhoneField = (EditText) findViewById(R.id.phone);
+        mAgeField = (EditText) findViewById(R.id.age);
+        mEducationField = (EditText) findViewById(R.id.education);
+        mPetField = (EditText) findViewById(R.id.pet);
+        mBioFiled = (EditText) findViewById(R.id.bio);
+        mLookingforField = (EditText) findViewById(R.id.lookingfor);
 
         mProfileImage = (ImageView) findViewById(R.id.profileImage);
 
@@ -113,6 +118,26 @@ public class SettingsActivity extends AppCompatActivity {
                         phone = map.get("phone").toString();
                         mPhoneField.setText(phone);
                     }
+                    if(map.get("age")!=null){
+                        age = map.get("age").toString();
+                        mAgeField.setText(age);
+                    }
+                    if(map.get("education")!=null){
+                        education = map.get("education").toString();
+                        mEducationField.setText(education);
+                    }
+                    if(map.get("pet")!=null){
+                        pet = map.get("pet").toString();
+                        mPetField.setText(pet);
+                    }
+                    if(map.get("bio")!=null){
+                        bio = map.get("bio").toString();
+                        mBioFiled.setText(bio);
+                    }
+                    if(map.get("lookingfor")!=null){
+                        lookingfor = map.get("lookingfor").toString();
+                        mLookingforField.setText(lookingfor);
+                    }
                     if(map.get("sex")!=null){
                         userSex = map.get("sex").toString();
                     }
@@ -141,10 +166,20 @@ public class SettingsActivity extends AppCompatActivity {
     private void saveUserInformation(){
         name = mNameField.getText().toString();
         phone = mPhoneField.getText().toString();
+        age = mAgeField.getText().toString();
+        education = mEducationField.getText().toString();
+        pet = mPetField.getText().toString();
+        bio = mBioFiled.getText().toString();
+        lookingfor = mLookingforField.getText().toString();
 
         Map userInfo = new HashMap<>();
         userInfo.put("name",name);
         userInfo.put("phone",phone);
+        userInfo.put("age",age);
+        userInfo.put("education", education);
+        userInfo.put("pet", pet);
+        userInfo.put("bio",bio);
+        userInfo.put("lookingfor",lookingfor);
         mUserDatabase.updateChildren(userInfo);
         if (resultUri != null){
             StorageReference filepath = FirebaseStorage.getInstance().getReference().child("profileImages").child(userId);
@@ -194,5 +229,13 @@ public class SettingsActivity extends AppCompatActivity {
             resultUri = imageUri;
             mProfileImage.setImageURI(resultUri);
         }
+    }
+
+    public void logoutUser(View view){
+        mAuth.signOut();
+        Intent intent = new Intent(SettingsActivity.this, ChooseLoginOrRegistationActivity.class);
+        startActivity(intent);
+        finish();
+        return;
     }
 }

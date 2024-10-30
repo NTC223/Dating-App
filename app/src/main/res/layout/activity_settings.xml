@@ -28,6 +28,42 @@
         android:hint="Phone"
         android:layout_marginBottom="20sp"
         android:inputType="phone"/>
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/age"
+        android:hint="Age"
+        android:background="@null"
+        android:layout_marginBottom="20sp"
+        android:inputType="numberDecimal"/>
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Education"
+        android:id="@+id/education"
+        android:background="@null"
+        android:layout_marginBottom="20sp"/>
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Pet"
+        android:id="@+id/pet"
+        android:background="@null"
+        android:layout_marginBottom="20sp"/>
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Bio"
+        android:id="@+id/bio"
+        android:background="@null"
+        android:layout_marginBottom="20sp"/>
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Looking for"
+        android:id="@+id/lookingfor"
+        android:background="@null"
+        android:layout_marginBottom="20sp"/>
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -37,5 +73,10 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/back"
-        android:text="back"/>
+        android:text="Back"/>
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="SignOut"
+        android:onClick="logoutUser"/>
 </LinearLayout>

@@ -73,6 +73,8 @@ public class LoginActivity extends AppCompatActivity {
         mBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Intent intent = new Intent(LoginActivity.this, ChooseLoginOrRegistationActivity.class);
+                startActivity(intent);
                 finish();
                 return;
             }
