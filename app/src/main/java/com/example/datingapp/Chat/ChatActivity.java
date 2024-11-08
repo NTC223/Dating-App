@@ -4,6 +4,9 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
 import androidx.annotation.NonNull;
@@ -40,9 +43,12 @@ public class ChatActivity extends AppCompatActivity {
 
     private EditText mSendEditText;
 
-    private Button mSendButton, mBack;
+    private ImageView mBack, mSendButton;
+    private ProgressBar progressBar;
 
-    private String currentUserId, matchId, chatId;
+    private String currentUserId, matchId, chatId, matchName;
+
+    private TextView mMatchName;
 
     DatabaseReference mDatabaseUser, mDatabaseChat;
 
@@ -52,6 +58,7 @@ public class ChatActivity extends AppCompatActivity {
         setContentView(R.layout.activity_chat);
 
         matchId = getIntent().getExtras().getString("matchId");
+        matchName = getIntent().getExtras().getString("matchName");
 
         currentUserId = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
@@ -71,7 +78,12 @@ public class ChatActivity extends AppCompatActivity {
 
         mSendEditText = findViewById(R.id.message);
         mSendButton = findViewById(R.id.send);
-        mBack = findViewById(R.id.back);
+        mBack = findViewById(R.id.imageBack);
+        mMatchName = findViewById(R.id.textName);
+
+        progressBar = findViewById(R.id.progressBar);
+
+        mMatchName.setText(matchName);
 
         mSendButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -119,6 +131,7 @@ public class ChatActivity extends AppCompatActivity {
             }
         });
     }
+
 
     private void getChatMessage() {
         mDatabaseChat.addChildEventListener(new ChildEventListener() {

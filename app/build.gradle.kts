@@ -18,6 +18,10 @@ android {
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
+//    repositories {
+//        mavenCentral()
+//    }
+
     buildTypes {
         release {
             isMinifyEnabled = false
@@ -46,6 +50,7 @@ dependencies {
     implementation ("com.google.android.gms:play-services-gcm:17.0.0")
     implementation ("com.google.firebase:firebase-storage:21.0.1")
     implementation("com.github.bumptech.glide:glide:4.15.1")
+    implementation (libs.roundedimageview)
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)

@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.example.datingapp.R;
+import com.example.datingapp.databinding.ItemContainerReceivedMessageBinding;
 
 import java.util.List;
 
@@ -43,7 +44,6 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatViewHolders> {
             holder.mMessage.setTextColor(Color.parseColor("#404040"));
             holder.mContainer.setBackgroundColor(Color.parseColor("#F4F4F4"));
         }else {
-
             holder.mMessage.setGravity(Gravity.START);
             holder.mMessage.setTextColor(Color.parseColor("#FFFFFF"));
             holder.mContainer.setBackgroundColor(Color.parseColor("#2DB4C8"));

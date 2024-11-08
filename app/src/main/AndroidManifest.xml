@@ -16,6 +16,7 @@
         tools:targetApi="31">
         <activity
             android:name=".Chat.ChatActivity"
+            android:windowSoftInputMode="adjustResize"
             android:exported="false" />
         <activity
             android:name=".Matches.MatchesActivity"
