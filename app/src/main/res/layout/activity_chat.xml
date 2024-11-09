@@ -16,6 +16,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/recyclerView"
+            app:stackFromEnd="true"
             android:scrollbars="vertical">
         </androidx.recyclerview.widget.RecyclerView>
     </androidx.core.widget.NestedScrollView>
