@@ -1,82 +1,193 @@
-<?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".SettingsActivity"
-    android:orientation="vertical"
-    android:padding="20sp">
-    <ImageView
-        android:layout_width="100sp"
-        android:layout_height="100sp"
-        android:id="@+id/profileImage"
-        android:src="@mipmap/ic_launcher"/>
-    <EditText
+    android:background="#121212"
+    tools:context=".SettingsActivity">
+
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/name"
-        android:background="@null"
-        android:hint="Name"
-        android:layout_marginBottom="20sp"/>
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/phone"
-        android:background="@null"
-        android:hint="Phone"
-        android:layout_marginBottom="20sp"
-        android:inputType="phone"/>
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/age"
-        android:hint="Age"
-        android:background="@null"
-        android:layout_marginBottom="20sp"
-        android:inputType="numberDecimal"/>
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Education"
-        android:id="@+id/education"
-        android:background="@null"
-        android:layout_marginBottom="20sp"/>
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Pet"
-        android:id="@+id/pet"
-        android:background="@null"
-        android:layout_marginBottom="20sp"/>
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Bio"
-        android:id="@+id/bio"
-        android:background="@null"
-        android:layout_marginBottom="20sp"/>
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Looking for"
-        android:id="@+id/lookingfor"
-        android:background="@null"
-        android:layout_marginBottom="20sp"/>
-    <Button
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/confirm"
-        android:text="confirm"/>
-    <Button
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/back"
-        android:text="Back"/>
-    <Button
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="SignOut"
-        android:onClick="logoutUser"/>
-</LinearLayout>
+        android:orientation="vertical"
+        android:padding="16dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:layout_marginBottom="16dp">
+
+            <ImageButton
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:scaleType="fitCenter"
+                android:id="@+id/back"
+                android:src="@drawable/back_icon"
+                android:background="@null"
+                android:contentDescription="Back button"/>
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1" />
+
+            <ImageButton
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:scaleType="fitCenter"
+                android:id="@+id/confirm"
+                android:src="@drawable/confirm_icon"
+                android:background="@null"
+                android:contentDescription="Confirm button"/>
+        </LinearLayout>
+
+        <ImageView
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:id="@+id/profileImage"
+            android:src="@mipmap/ic_launcher"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginBottom="24dp"/>
+
+        <!-- Name Field -->
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            app:cardCornerRadius="8dp"
+            app:cardBackgroundColor="#1E1E1E">
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/name"
+                android:hint="Name"
+                android:textColor="#FFFFFF"
+                android:textColorHint="#C0C0C0"
+                android:background="@null"
+                android:padding="12dp" />
+        </androidx.cardview.widget.CardView>
+
+        <!-- Phone Field -->
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            app:cardCornerRadius="8dp"
+            app:cardBackgroundColor="#1E1E1E">
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/phone"
+                android:hint="Phone"
+                android:textColor="#FFFFFF"
+                android:textColorHint="#C0C0C0"
+                android:background="@null"
+                android:inputType="phone"
+                android:padding="12dp" />
+        </androidx.cardview.widget.CardView>
+
+        <!-- Age Field -->
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            app:cardCornerRadius="8dp"
+            app:cardBackgroundColor="#1E1E1E">
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/age"
+                android:hint="Age"
+                android:textColor="#FFFFFF"
+                android:textColorHint="#C0C0C0"
+                android:background="@null"
+                android:inputType="numberDecimal"
+                android:padding="12dp" />
+        </androidx.cardview.widget.CardView>
+
+        <!-- Education Field -->
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            app:cardCornerRadius="8dp"
+            app:cardBackgroundColor="#1E1E1E">
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/education"
+                android:hint="Education"
+                android:textColor="#FFFFFF"
+                android:textColorHint="#C0C0C0"
+                android:background="@null"
+                android:padding="12dp" />
+        </androidx.cardview.widget.CardView>
+
+        <!-- Pet Field -->
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            app:cardCornerRadius="8dp"
+            app:cardBackgroundColor="#1E1E1E">
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/pet"
+                android:hint="Pet"
+                android:textColor="#FFFFFF"
+                android:textColorHint="#C0C0C0"
+                android:background="@null"
+                android:padding="12dp" />
+        </androidx.cardview.widget.CardView>
+
+        <!-- Bio Field -->
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            app:cardCornerRadius="8dp"
+            app:cardBackgroundColor="#1E1E1E">
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/bio"
+                android:hint="Bio"
+                android:textColor="#FFFFFF"
+                android:textColorHint="#C0C0C0"
+                android:background="@null"
+                android:padding="12dp" />
+        </androidx.cardview.widget.CardView>
+
+        <!-- Looking For Field -->
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            app:cardCornerRadius="8dp"
+            app:cardBackgroundColor="#1E1E1E">
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/lookingfor"
+                android:hint="Looking for"
+                android:textColor="#FFFFFF"
+                android:textColorHint="#C0C0C0"
+                android:background="@null"
+                android:padding="12dp" />
+        </androidx.cardview.widget.CardView>
+
+        <!-- Sign Out Button -->
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Sign Out"
+            android:onClick="logoutUser"
+            android:backgroundTint="#B00020"
+            android:textColor="#FFFFFF"
+            android:padding="12dp"
+            android:background="@drawable/rounded_button" />
+    </LinearLayout>
+</ScrollView>

@@ -9,6 +9,7 @@ import android.provider.MediaStore;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 
 import androidx.activity.EdgeToEdge;
@@ -44,7 +45,7 @@ public class SettingsActivity extends AppCompatActivity {
 
     private EditText mNameField, mPhoneField, mAgeField, mEducationField, mPetField, mBioFiled, mLookingforField;
 
-    private Button mBack, mConfirm;
+    private ImageButton mBack, mConfirm;
 
     private ImageView mProfileImage;
 
@@ -70,8 +71,8 @@ public class SettingsActivity extends AppCompatActivity {
 
         mProfileImage = (ImageView) findViewById(R.id.profileImage);
 
-        mBack = (Button) findViewById(R.id.back);
-        mConfirm = (Button) findViewById(R.id.confirm);
+        mBack = (ImageButton) findViewById(R.id.back);
+        mConfirm = (ImageButton) findViewById(R.id.confirm);
 
         mAuth = FirebaseAuth.getInstance();
         userId = mAuth.getCurrentUser().getUid();

@@ -96,6 +96,11 @@ public class RegistationActivity extends AppCompatActivity {
                             userInfo.put("name", name);
                             userInfo.put("sex",radioButton.getText().toString());
                             userInfo.put("profileImageUrl","default");
+                            userInfo.put("age","");
+                            userInfo.put("bio","");
+                            userInfo.put("education","");
+                            userInfo.put("lookingfor","");
+                            userInfo.put("pet","");
                             currentUserDb.updateChildren(userInfo);
                         }
                     }
