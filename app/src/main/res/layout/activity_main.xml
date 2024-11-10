@@ -23,6 +23,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Tym"
+        android:fontFamily="sans-serif"
         android:textSize="30dp"
         android:textColor="@color/logo"
         android:paddingLeft="0dp"
