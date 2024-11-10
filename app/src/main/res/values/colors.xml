@@ -3,4 +3,9 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="logo">#FF007F</color>
+
+    <color name="BG_gradient_start">#F03DC7</color>
+    <color name="BG_gradient_end">#F6693D</color>
+
+    <color name="bright_white">#C0C0C0</color>
 </resources>
