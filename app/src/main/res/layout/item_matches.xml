@@ -1,33 +1,49 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="horizontal"
-    android:padding="20sp">
-    <ImageView
-        android:layout_width="50sp"
-        android:layout_height="50sp"
-        android:src="@mipmap/ic_launcher"
-        android:id="@+id/MatchImage"/>
-    <LinearLayout
-        android:paddingLeft="20sp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:layout_gravity="center">
-        <TextView
-            android:paddingBottom="20sp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Match's Name"
-            android:layout_gravity="center"
-            android:id="@+id/MatchName"/>
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Match's ID"
-            android:layout_gravity="center"
-            android:id="@+id/MatchId"/>
-    </LinearLayout>
+    android:layout_height="wrap_content"
+    android:padding="16dp"
+    android:background="@color/black">
 
-</LinearLayout>
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/MatchImage"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:src="@mipmap/ic_launcher"
+        android:contentDescription="Profile image"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:shapeAppearanceOverlay="@style/CustomRoundedImage" />
+
+    <TextView
+        android:id="@+id/MatchName"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:paddingStart="16dp"
+        android:text="Match's Name"
+        android:textColor="@color/white"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintTop_toTopOf="@+id/MatchImage"
+        app:layout_constraintStart_toEndOf="@id/MatchImage"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <TextView
+        android:id="@+id/MatchId"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:paddingStart="16dp"
+        android:paddingTop="4dp"
+        android:text="Match's ID"
+        android:textColor="@color/bright_white"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="@+id/MatchImage"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@id/MatchName"
+        app:layout_constraintTop_toBottomOf="@id/MatchName" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
