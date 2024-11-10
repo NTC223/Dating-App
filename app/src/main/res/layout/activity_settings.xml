@@ -19,15 +19,15 @@
             android:gravity="center_vertical"
             android:layout_marginBottom="16dp">
 
-            <ImageButton
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:scaleType="fitCenter"
+            <Button
                 android:id="@+id/back"
-                app:backgroundTint="@color/black"
-                android:src="@drawable/back_icon"
-                android:background="@null"
-                android:contentDescription="Back button"/>
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:background="@drawable/back"
+                app:backgroundTint="@color/white"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:layout_marginTop="0dp" />
 
             <View
                 android:layout_width="0dp"
