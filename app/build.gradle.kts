@@ -47,6 +47,9 @@ dependencies {
     implementation ("com.google.firebase:firebase-storage:21.0.1")
     implementation("com.github.bumptech.glide:glide:4.15.1")
 
+    implementation("com.google.android.material:material:1.8.0")
+    implementation ("androidx.constraintlayout:constraintlayout:2.1.4")
+
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
     implementation(libs.material)
