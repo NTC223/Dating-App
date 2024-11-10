@@ -20,10 +20,11 @@
             android:layout_marginBottom="16dp">
 
             <ImageButton
-                android:layout_width="48dp"
-                android:layout_height="48dp"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
                 android:scaleType="fitCenter"
                 android:id="@+id/back"
+                app:backgroundTint="@color/black"
                 android:src="@drawable/back_icon"
                 android:background="@null"
                 android:contentDescription="Back button"/>
@@ -33,14 +34,15 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1" />
 
-            <ImageButton
-                android:layout_width="48dp"
-                android:layout_height="48dp"
-                android:scaleType="fitCenter"
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:id="@+id/confirm"
-                android:src="@drawable/confirm_icon"
-                android:background="@null"
-                android:contentDescription="Confirm button"/>
+                android:text="Done"
+                android:textSize="15dp"
+                android:fontFamily="sans-serif"
+                android:textColor="@color/blue"
+                android:background="@android:color/transparent"/>
         </LinearLayout>
 
         <ImageView
@@ -63,6 +65,7 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/name"
                 android:hint="Name"
+                android:fontFamily="sans-serif"
                 android:textColor="#FFFFFF"
                 android:textColorHint="#C0C0C0"
                 android:background="@null"
@@ -81,6 +84,7 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/phone"
                 android:hint="Phone"
+                android:fontFamily="sans-serif"
                 android:textColor="#FFFFFF"
                 android:textColorHint="#C0C0C0"
                 android:background="@null"
@@ -102,6 +106,7 @@
                 android:hint="Age"
                 android:textColor="#FFFFFF"
                 android:textColorHint="#C0C0C0"
+                android:fontFamily="sans-serif"
                 android:background="@null"
                 android:inputType="numberDecimal"
                 android:padding="12dp" />
@@ -119,6 +124,7 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/education"
                 android:hint="Education"
+                android:fontFamily="sans-serif"
                 android:textColor="#FFFFFF"
                 android:textColorHint="#C0C0C0"
                 android:background="@null"
@@ -137,6 +143,7 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/pet"
                 android:hint="Pet"
+                android:fontFamily="sans-serif"
                 android:textColor="#FFFFFF"
                 android:textColorHint="#C0C0C0"
                 android:background="@null"
@@ -155,6 +162,7 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/bio"
                 android:hint="Bio"
+                android:fontFamily="sans-serif"
                 android:textColor="#FFFFFF"
                 android:textColorHint="#C0C0C0"
                 android:background="@null"
@@ -173,6 +181,7 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/lookingfor"
                 android:hint="Looking for"
+                android:fontFamily="sans-serif"
                 android:textColor="#FFFFFF"
                 android:textColorHint="#C0C0C0"
                 android:background="@null"
@@ -184,6 +193,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Sign Out"
+            android:fontFamily="sans-serif"
             android:onClick="logoutUser"
             android:backgroundTint="#B00020"
             android:textColor="#FFFFFF"

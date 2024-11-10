@@ -45,7 +45,8 @@ public class SettingsActivity extends AppCompatActivity {
 
     private EditText mNameField, mPhoneField, mAgeField, mEducationField, mPetField, mBioFiled, mLookingforField;
 
-    private ImageButton mBack, mConfirm;
+    private ImageButton mBack;
+    private Button mConfirm;
 
     private ImageView mProfileImage;
 
@@ -72,7 +73,7 @@ public class SettingsActivity extends AppCompatActivity {
         mProfileImage = (ImageView) findViewById(R.id.profileImage);
 
         mBack = (ImageButton) findViewById(R.id.back);
-        mConfirm = (ImageButton) findViewById(R.id.confirm);
+        mConfirm = (Button) findViewById(R.id.confirm);
 
         mAuth = FirebaseAuth.getInstance();
         userId = mAuth.getCurrentUser().getUid();

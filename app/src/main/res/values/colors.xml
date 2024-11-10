@@ -2,6 +2,7 @@
 <resources>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="blue">#4D9FFF</color>
     <color name="logo">#FF007F</color>
 
     <color name="BG_gradient_start">#F03DC7</color>
