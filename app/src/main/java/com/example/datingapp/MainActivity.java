@@ -174,7 +174,7 @@ public class MainActivity extends AppCompatActivity {
                         if(!snapshot.child("profileImageUrl").getValue().equals("default")){
                             profileImageUrl = snapshot.child("profileImageUrl").getValue().toString();
                         }
-                        cards item = new cards(snapshot.getKey(), snapshot.child("name").getValue().toString(), profileImageUrl);
+                        cards item = new cards(snapshot.getKey(), snapshot.child("name").getValue().toString(), profileImageUrl, snapshot.child("age").getValue().toString(), snapshot.child("bio").getValue().toString(), snapshot.child("lookingfor").getValue().toString());
                         rowItems.add(item);
                         arrayAdapter.notifyDataSetChanged();
                     }

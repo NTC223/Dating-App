@@ -9,6 +9,7 @@ import android.provider.MediaStore;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 
 import androidx.activity.EdgeToEdge;
@@ -44,7 +45,8 @@ public class SettingsActivity extends AppCompatActivity {
 
     private EditText mNameField, mPhoneField, mAgeField, mEducationField, mPetField, mBioFiled, mLookingforField;
 
-    private Button mBack, mConfirm;
+//    private ImageButton;
+    private Button mConfirm, mBack;
 
     private ImageView mProfileImage;
 

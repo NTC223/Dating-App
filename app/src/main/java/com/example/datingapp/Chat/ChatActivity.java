@@ -154,7 +154,14 @@ public class ChatActivity extends AppCompatActivity {
                         }
                         ChatObject newMessage = new ChatObject(message, currentUserBoolean);
                         resultsChat.add(newMessage);
-                        mChatAdapter.notifyDataSetChanged();
+                        int count = resultsChat.size();
+                        if(count == 0) mChatAdapter.notifyDataSetChanged();
+                        else {
+                            mChatAdapter.notifyItemRangeInserted(count - 1, 1);
+                            mRecyclerView.post(() -> mRecyclerView.smoothScrollToPosition(count - 1));
+                            System.out.println("Cuon xuong r");
+                        }
+                        mRecyclerView.setVisibility(View.VISIBLE);
                     }
                 }
             }
