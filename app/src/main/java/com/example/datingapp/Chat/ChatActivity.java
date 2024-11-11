@@ -183,6 +183,7 @@ public class ChatActivity extends AppCompatActivity {
                             System.out.println("Cuon xuong r");
                         }
                         mRecyclerView.setVisibility(View.VISIBLE);
+                        progressBar.setVisibility(View.GONE);
                     }
                 }
             }
