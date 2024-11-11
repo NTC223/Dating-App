@@ -38,8 +38,14 @@ public class MatchesAdapter extends RecyclerView.Adapter<MatchesViewHolders> {
     public void onBindViewHolder(@NonNull MatchesViewHolders holder, int position) {
         holder.mMatchId.setText(matchesList.get(position).getUserId());
         holder.mMatchName.setText(matchesList.get(position).getName());
-        if (!matchesList.get(position).getProfileImageUrl().equals("defaut")) {
-            Glide.with(context).load(matchesList.get(position).getProfileImageUrl()).into(holder.mMatchImage);
+        switch (matchesList.get(position).getProfileImageUrl()){
+            case "default":
+                Glide.with(context).load(R.mipmap.ic_launcher).into(holder.mMatchImage);
+                break;
+            default:
+                Glide.with(context).clear(holder.mMatchImage);
+                Glide.with(context).load(matchesList.get(position).getProfileImageUrl()).into(holder.mMatchImage);
+                break;
         }
     }
 

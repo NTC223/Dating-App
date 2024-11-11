@@ -32,6 +32,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import android.widget.ImageView;
+import android.widget.ProgressBar;
+import android.widget.TextView;
+
 public class ChatActivity extends AppCompatActivity {
 
     private RecyclerView mRecyclerView;
@@ -40,11 +44,14 @@ public class ChatActivity extends AppCompatActivity {
 
     private EditText mSendEditText;
 
-    private Button mSendButton, mBack;
+    private ImageView mBack, mSendButton;
+    private ProgressBar progressBar;
 
-    private String currentUserId, matchId, chatId;
+    private String currentUserId, matchId, chatId, matchName, profileImageUrl;
 
-    DatabaseReference mDatabaseUser, mDatabaseChat;
+    private TextView mMatchName;
+
+    DatabaseReference mDatabaseUser, mDatabaseChat, mDatabaseProfileImageUrl;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,11 +59,14 @@ public class ChatActivity extends AppCompatActivity {
         setContentView(R.layout.activity_chat);
 
         matchId = getIntent().getExtras().getString("matchId");
+        matchName = getIntent().getExtras().getString("matchName");
+
 
         currentUserId = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
         mDatabaseUser = FirebaseDatabase.getInstance().getReference().child("Users").child(currentUserId).child("connections").child("matches").child(matchId).child("chatId");
         mDatabaseChat = FirebaseDatabase.getInstance().getReference().child("Chat");
+        mDatabaseProfileImageUrl = FirebaseDatabase.getInstance().getReference().child("Users").child(currentUserId).child("profileImageUrl");
 
         getChatId();
 
@@ -71,7 +81,13 @@ public class ChatActivity extends AppCompatActivity {
 
         mSendEditText = findViewById(R.id.message);
         mSendButton = findViewById(R.id.send);
-        mBack = findViewById(R.id.back);
+
+        mBack = findViewById(R.id.imageBack);
+        mMatchName = findViewById(R.id.textName);
+
+        progressBar = findViewById(R.id.progressBar);
+
+        mMatchName.setText(matchName);
 
         mSendButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -96,8 +112,20 @@ public class ChatActivity extends AppCompatActivity {
             Map newMessage = new HashMap();
             newMessage.put("createdByUser", currentUserId);
             newMessage.put("text", sendMessageText);
+            mDatabaseProfileImageUrl.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    if (snapshot.exists()) {
+                        String profileImageUrl = snapshot.getValue(String.class);
+                        newMessage.put("profileImageUrl", profileImageUrl);
+                    }
+                    newMessageDb.setValue(newMessage);
+                }
 
-            newMessageDb.setValue(newMessage);
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+                }
+            });
         }
         mSendEditText.setText(null);
     }
@@ -127,6 +155,7 @@ public class ChatActivity extends AppCompatActivity {
                 if(snapshot.exists()){
                     String message = null;
                     String createdByUser = null;
+                    String profileImageUrl = null;
 
                     if(snapshot.child("text").getValue()!=null){
                         message = snapshot.child("text").getValue().toString();
@@ -134,13 +163,18 @@ public class ChatActivity extends AppCompatActivity {
                     if(snapshot.child("createdByUser").getValue()!=null){
                         createdByUser = snapshot.child("createdByUser").getValue().toString();
                     }
-                    if(message!=null && createdByUser!=null){
+                    if(snapshot.child("profileImageUrl").getValue()!=null){
+                        profileImageUrl = snapshot.child("profileImageUrl").getValue().toString();
+                    }
+                    if(message!=null && createdByUser!=null && profileImageUrl!=null){
                         Boolean currentUserBoolean = false;
                         if(createdByUser.equals(currentUserId)){
                             currentUserBoolean = true;
                         }
-                        ChatObject newMessage = new ChatObject(message, currentUserBoolean);
+
+                        ChatObject newMessage =  new ChatObject(message, currentUserBoolean, profileImageUrl);
                         resultsChat.add(newMessage);
+
                         int count = resultsChat.size();
                         if(count == 0) mChatAdapter.notifyDataSetChanged();
                         else {

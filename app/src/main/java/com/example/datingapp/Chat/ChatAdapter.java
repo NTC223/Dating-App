@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
@@ -26,27 +27,42 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatViewHolders> {
     @NonNull
     @Override
     public ChatViewHolders onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        View layoutView;
 
-        View layoutView = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_chat, null, false);
+        if (viewType == ChatObject.TYPE_SEND) {
+            layoutView = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_container_send_message, parent, false);
+        } else {
+            layoutView = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_container_received_message, parent, false);
+        }
+
         RecyclerView.LayoutParams lp = new RecyclerView.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         layoutView.setLayoutParams(lp);
-        ChatViewHolders rcv = new ChatViewHolders((layoutView));
 
-        return rcv;
+        return new ChatViewHolders(layoutView);
+    }
+
+    @Override
+    public int getItemViewType(int position) {
+        ChatObject chat = chatList.get(position);
+        if (chat.getCurrentUser()) {
+            return ChatObject.TYPE_SEND;
+        } else {
+            return ChatObject.TYPE_RECEIVE;
+        }
     }
 
     @Override
     public void onBindViewHolder(@NonNull ChatViewHolders holder, int position) {
         holder.mMessage.setText(chatList.get(position).getMessage());
-        if (chatList.get(position).getCurrentUser()){
-            holder.mMessage.setGravity(Gravity.END);
-            holder.mMessage.setTextColor(Color.parseColor("#404040"));
-            holder.mContainer.setBackgroundColor(Color.parseColor("#F4F4F4"));
-        }else {
-
-            holder.mMessage.setGravity(Gravity.START);
-            holder.mMessage.setTextColor(Color.parseColor("#FFFFFF"));
-            holder.mContainer.setBackgroundColor(Color.parseColor("#2DB4C8"));
+        ChatObject chat = chatList.get(position);
+        switch (chat.getProfileImageUrl()){
+            case "default":
+                Glide.with(context).load(R.mipmap.ic_launcher).into(holder.mImageView);
+                break;
+            default:
+                Glide.with(context).clear(holder.mImageView);
+                Glide.with(context).load(chat.getProfileImageUrl()).into(holder.mImageView);
+                break;
         }
     }
 

@@ -5,8 +5,17 @@
     <color name="blue">#4D9FFF</color>
     <color name="logo">#FF007F</color>
 
+    <color name="black2">#161616</color>
+
     <color name="BG_gradient_start">#F03DC7</color>
     <color name="BG_gradient_end">#F6693D</color>
 
     <color name="bright_white">#C0C0C0</color>
+
+    <color name="primary_text">#212121</color>
+    <color name="secondary_text">#757575</color>
+    <color name="input_background">#ECECEC</color>
+    <color name="icon_background">#20FFFFFF</color>
+    <color name="error">#B00020</color>
+    <color name="received_message_background">#090D16</color>
 </resources>
