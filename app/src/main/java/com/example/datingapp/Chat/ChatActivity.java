@@ -47,7 +47,7 @@ public class ChatActivity extends AppCompatActivity {
     private ImageView mBack, mSendButton;
     private ProgressBar progressBar;
 
-    private String currentUserId, matchId, chatId, matchName, profileImageUrl;
+    private String currentUserId, matchId, chatId, matchName;
 
     private TextView mMatchName;
 
@@ -66,7 +66,6 @@ public class ChatActivity extends AppCompatActivity {
 
         mDatabaseUser = FirebaseDatabase.getInstance().getReference().child("Users").child(currentUserId).child("connections").child("matches").child(matchId).child("chatId");
         mDatabaseChat = FirebaseDatabase.getInstance().getReference().child("Chat");
-        mDatabaseProfileImageUrl = FirebaseDatabase.getInstance().getReference().child("Users").child(currentUserId).child("profileImageUrl");
 
         getChatId();
 
@@ -112,20 +111,7 @@ public class ChatActivity extends AppCompatActivity {
             Map newMessage = new HashMap();
             newMessage.put("createdByUser", currentUserId);
             newMessage.put("text", sendMessageText);
-            mDatabaseProfileImageUrl.addListenerForSingleValueEvent(new ValueEventListener() {
-                @Override
-                public void onDataChange(@NonNull DataSnapshot snapshot) {
-                    if (snapshot.exists()) {
-                        String profileImageUrl = snapshot.getValue(String.class);
-                        newMessage.put("profileImageUrl", profileImageUrl);
-                    }
-                    newMessageDb.setValue(newMessage);
-                }
-
-                @Override
-                public void onCancelled(@NonNull DatabaseError error) {
-                }
-            });
+            newMessageDb.setValue(newMessage);
         }
         mSendEditText.setText(null);
     }
@@ -140,7 +126,6 @@ public class ChatActivity extends AppCompatActivity {
                     getChatMessage();
                 }
             }
-
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
 
@@ -155,7 +140,6 @@ public class ChatActivity extends AppCompatActivity {
                 if(snapshot.exists()){
                     String message = null;
                     String createdByUser = null;
-                    String profileImageUrl = null;
 
                     if(snapshot.child("text").getValue()!=null){
                         message = snapshot.child("text").getValue().toString();
@@ -163,28 +147,41 @@ public class ChatActivity extends AppCompatActivity {
                     if(snapshot.child("createdByUser").getValue()!=null){
                         createdByUser = snapshot.child("createdByUser").getValue().toString();
                     }
-                    if(snapshot.child("profileImageUrl").getValue()!=null){
-                        profileImageUrl = snapshot.child("profileImageUrl").getValue().toString();
-                    }
-                    if(message!=null && createdByUser!=null && profileImageUrl!=null){
-                        Boolean currentUserBoolean = false;
-                        if(createdByUser.equals(currentUserId)){
-                            currentUserBoolean = true;
-                        }
+                    final String messageFinal = message;
+                    final String createdByUserFinal = createdByUser;
+                    mDatabaseProfileImageUrl = FirebaseDatabase.getInstance().getReference().child("Users").child(createdByUser).child("profileImageUrl");
+                    mDatabaseProfileImageUrl.addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot snapshot) {
+                            if (snapshot.exists()){
+                                String profileImageUrl = snapshot.getValue().toString();
+                                if(messageFinal!=null && createdByUserFinal!=null && profileImageUrl!=null){
+                                    Boolean currentUserBoolean = false;
+                                    if(createdByUserFinal.equals(currentUserId)){
+                                        currentUserBoolean = true;
+                                    }
 
-                        ChatObject newMessage =  new ChatObject(message, currentUserBoolean, profileImageUrl);
-                        resultsChat.add(newMessage);
+                                    ChatObject newMessage =  new ChatObject(messageFinal, currentUserBoolean, profileImageUrl);
+                                    resultsChat.add(newMessage);
 
-                        int count = resultsChat.size();
-                        if(count == 0) mChatAdapter.notifyDataSetChanged();
-                        else {
-                            mChatAdapter.notifyItemRangeInserted(count - 1, 1);
-                            mRecyclerView.post(() -> mRecyclerView.smoothScrollToPosition(count - 1));
-                            System.out.println("Cuon xuong r");
+                                    int count = resultsChat.size();
+                                    if(count == 0) mChatAdapter.notifyDataSetChanged();
+                                    else {
+                                        mChatAdapter.notifyItemRangeInserted(count - 1, 1);
+                                        mRecyclerView.post(() -> mRecyclerView.smoothScrollToPosition(count - 1));
+                                        System.out.println("Cuon xuong r");
+                                    }
+                                    mRecyclerView.setVisibility(View.VISIBLE);
+                                    progressBar.setVisibility(View.GONE);
+                                }
+                            }
                         }
-                        mRecyclerView.setVisibility(View.VISIBLE);
-                        progressBar.setVisibility(View.GONE);
-                    }
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError error) {
+
+                        }
+                    });
+
                 }
             }
 
