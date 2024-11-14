@@ -100,7 +100,7 @@
         android:background="@null"
         android:onClick="goToMatches"
         android:scaleType="fitCenter"
-        android:src="@drawable/chatButton_Inactive"
+        android:src="@drawable/chat_button_inactive"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintHeight_percent="0.09"
         app:layout_constraintWidth_percent="0.1"
