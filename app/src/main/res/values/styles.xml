@@ -4,4 +4,9 @@
         <item name="cornerFamily">rounded</item>
         <item name="cornerSize">40dp</item>
     </style>
+
+    <style name="HintTextStyle">
+        <item name="android:textStyle">normal</item>
+        <item name="android:textColorHint">#C0C0C0</item>
+    </style>
 </resources>

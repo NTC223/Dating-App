@@ -6,114 +6,86 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="@drawable/background_gradient"
+    android:background="@color/black"
+    android:padding="16dp"
     tools:context=".ChooseLoginOrRegistationActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:layout_weight="9"
+        android:layout_height="0dp"
+        android:layout_weight="8"
         android:gravity="center"
         android:orientation="vertical">
 
-        <LinearLayout
-            android:layout_width="match_parent"
+        <ImageView
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            android:src="@drawable/heart_beat" />
+
+        <TextView
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="2"
-            android:gravity="center"
-            android:orientation="vertical">
-
-            <ImageView
-                android:layout_width="100dp"
-                android:layout_height="100dp"
-                android:src="@drawable/heart">
-
-            </ImageView>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="100dp"
-                android:layout_gravity="center_horizontal"
-                android:text="tym"
-                android:textColor="@color/white"
-                android:textSize="50dp">
-
-            </TextView>
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_weight="1"
-            android:orientation="vertical"
-            android:gravity="center_horizontal">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_weight="1"
-                android:orientation="vertical">
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:gravity="center_horizontal"
-                android:layout_weight="1">
-                <TextView
-                    android:layout_width="330dp"
-                    android:layout_height="match_parent"
-                    android:layout_gravity="center_horizontal"
-                    android:text="By tapping 'Create account' or 'Sign in' you agree to our Term. Learn how we process your data in our Privacy Policy and Cookies Policy."
-                    android:textSize="17dp"
-                    android:textColor="@color/white">
-
-                </TextView>
-
-            </LinearLayout>
-
-
-        </LinearLayout>
-
+            android:text="Tym"
+            android:textColor="@color/white"
+            android:textSize="40sp"
+            android:textStyle="bold"
+            android:layout_marginTop="0dp" />
     </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="2"
+        android:gravity="center_horizontal"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="330dp"
+            android:layout_height="wrap_content"
+            android:text="By tapping 'Create account' or 'Sign in' you agree to our Terms. Learn how we process your data in our Privacy Policy and Cookies Policy."
+            android:textSize="14sp"
+            android:textColor="@color/white"
+            android:gravity="center_horizontal"
+            android:padding="16dp" />
+    </LinearLayout>
+
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:orientation="vertical"
-        android:layout_gravity="center_horizontal"
-        android:layout_weight="2">
+        android:layout_height="0dp"
+        android:layout_weight="3"
+        android:gravity="center_horizontal">
 
         <Button
             android:id="@+id/login"
-            android:layout_width="400dp"
-            android:layout_height="60dp"
-            android:backgroundTint="@color/white"
+            android:layout_width="350dp"
+            android:layout_height="wrap_content"
+            app:backgroundTint="@null"
+            android:background="@drawable/button_background"
             android:text="Sign in"
             android:textStyle="bold"
-            android:textSize="20dp"
-            android:textColor="@color/black"
+            android:textSize="18dp"
+            android:textColor="@color/white"
             android:layout_centerHorizontal="true"
             android:layout_alignParentTop="true" />
 
         <Button
             android:id="@+id/register"
-            android:layout_width="400dp"
-            android:layout_height="60dp"
-            android:backgroundTint="@color/white"
+            android:layout_width="350dp"
+            android:layout_height="wrap_content"
+            app:backgroundTint="@null"
+            android:background="@drawable/button_background"
             android:text="Create account"
-            android:textColor="@color/black"
+            android:textColor="@color/white"
             android:textStyle="bold"
-            android:textSize="20dp"
-            android:layout_below="@+id/login"
-            android:layout_centerHorizontal="true"/>
+            android:textSize="18dp"
+            android:layout_below="@id/login"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="15dp" />
     </RelativeLayout>
+
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:orientation="vertical"
-        android:layout_weight="1"></LinearLayout>
-
-
-
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:orientation="vertical" />
 </LinearLayout>

@@ -7,29 +7,32 @@
     android:layout_height="match_parent"
     android:background="@color/black"
     tools:context=".MainActivity"
+
     android:orientation="vertical">
 
 <!--  Header  -->
     <ImageView
         android:id="@+id/logo"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:src="@drawable/logo"
-        android:paddingLeft="0dp"
-        android:paddingTop="0dp"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toTopOf="parent"/>
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:src="@drawable/heart_beat"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="10dp"/>
+
     <TextView
+        android:id="@+id/title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Tym"
         android:fontFamily="sans-serif"
-        android:textSize="30dp"
-        android:textColor="@color/logo"
-        android:paddingLeft="0dp"
-        app:layout_constraintLeft_toRightOf="@id/logo"
+        android:textSize="30sp"
+        android:textColor="@color/white"
+        app:layout_constraintStart_toEndOf="@id/logo"
         app:layout_constraintTop_toTopOf="@id/logo"
-        app:layout_constraintBottom_toBottomOf="@id/logo"/>
+        app:layout_constraintBottom_toBottomOf="@id/logo"
+        />
 <!--  Main  -->
     <com.lorentzos.flingswipe.SwipeFlingAdapterView
         android:id="@+id/frame"
@@ -40,6 +43,16 @@
         tools:context=".MyActivity"
         app:layout_constraintTop_toBottomOf="@id/logo"
         app:layout_constraintBottom_toTopOf="@id/like"/>
+    <View
+        android:id="@+id/line"
+        android:layout_width="0dp"
+        android:layout_height="15dp"
+        android:background="#1E1E1E"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/like"
+        app:layout_constraintBottom_toBottomOf="@id/dislike"
+        />
 <!--  like dislike button  -->
     <ImageButton
         android:id="@+id/dislike"
@@ -69,44 +82,43 @@
 <!--  bottom  -->
     <ImageButton
         android:id="@+id/home"
-        android:layout_width="56dp"
-        android:layout_height="37dp"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
         android:background="@null"
         android:scaleType="fitCenter"
-        android:src="@drawable/logo"
+        android:src="@drawable/heart_beat"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintHeight_percent="0.12"
+        app:layout_constraintHeight_percent="0.09"
+        app:layout_constraintWidth_percent="0.1"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toLeftOf="@id/matches"
-        app:layout_constraintTop_toBottomOf="@id/dislike"
-        app:layout_constraintWidth_percent="0.12" />
+        app:layout_constraintRight_toLeftOf="@id/matches" />
 
     <ImageButton
         android:id="@+id/matches"
-        android:layout_width="39dp"
-        android:layout_height="48dp"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
         android:background="@null"
         android:onClick="goToMatches"
         android:scaleType="fitCenter"
-        android:src="@drawable/conversation_button"
+        android:src="@drawable/chatButton_Inactive"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintHeight_percent="0.09"
+        app:layout_constraintWidth_percent="0.1"
         app:layout_constraintLeft_toRightOf="@id/home"
-        app:layout_constraintRight_toLeftOf="@id/setting"
-        app:layout_constraintWidth_percent="0.09" />
+        app:layout_constraintRight_toLeftOf="@id/setting" />
+
     <ImageButton
         android:id="@+id/setting"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        app:layout_constraintWidth_percent="0.07"
-        app:layout_constraintHeight_percent="0.07"
         android:scaleType="fitCenter"
-        android:src="@drawable/user_black_close_up_shape_button"
+        android:src="@drawable/user_inactive_button"
         android:background="@null"
         android:onClick="goToSettings"
-        app:layout_constraintBottom_toBottomOf="@id/matches"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHeight_percent="0.09"
+        app:layout_constraintWidth_percent="0.1"
         app:layout_constraintLeft_toRightOf="@id/matches"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="@id/matches"/>
+        app:layout_constraintRight_toRightOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

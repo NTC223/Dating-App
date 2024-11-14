@@ -14,7 +14,7 @@
         android:id="@+id/back"
         android:layout_width="30dp"
         android:layout_height="30dp"
-        android:background="@drawable/back"
+        android:background="@drawable/round_back"
         app:backgroundTint="@color/white"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -34,7 +34,7 @@
             android:id="@+id/icon"
             android:layout_width="30dp"
             android:layout_height="30dp"
-            android:src="@drawable/pink_heart"
+            android:src="@drawable/heart_beat"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"/>
 
@@ -42,7 +42,7 @@
             android:id="@+id/title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Tym"
+            android:text="Chats"
             android:textColor="@color/white"
             android:textSize="20sp"
             android:fontFamily="sans-serif"
@@ -55,11 +55,14 @@
         android:id="@+id/nestedScrollView"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="40dp"
+        android:layout_marginBottom="50dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/group">
+        app:layout_constraintTop_toBottomOf="@id/group"
+        app:layout_constraintVertical_bias="1.0">
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerView"
@@ -67,5 +70,46 @@
             android:layout_height="wrap_content"
             android:scrollbars="vertical" />
     </androidx.core.widget.NestedScrollView>
+
+    <ImageButton
+        android:id="@+id/home"
+        android:layout_width="56dp"
+        android:layout_height="37dp"
+        android:background="@null"
+        android:scaleType="fitCenter"
+        android:src="@drawable/heart_beat_inactive"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHeight_percent="0.12"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toLeftOf="@id/matches"
+        app:layout_constraintWidth_percent="0.12" />
+
+    <ImageButton
+        android:id="@+id/matches"
+        android:layout_width="56dp"
+        android:layout_height="37dp"
+        android:background="@null"
+        android:onClick="goToMatches"
+        android:scaleType="fitCenter"
+        android:src="@drawable/chatButton_active"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHeight_percent="0.09"
+        app:layout_constraintLeft_toRightOf="@id/home"
+        app:layout_constraintRight_toLeftOf="@id/setting"
+        app:layout_constraintWidth_percent="0.09" />
+    <ImageButton
+        android:id="@+id/setting"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintWidth_percent="0.07"
+        app:layout_constraintHeight_percent="0.07"
+        android:scaleType="fitCenter"
+        android:src="@drawable/user_inactive_button"
+        android:background="@null"
+        android:onClick="goToSettings"
+        app:layout_constraintBottom_toBottomOf="@id/matches"
+        app:layout_constraintLeft_toRightOf="@id/matches"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="@id/matches"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

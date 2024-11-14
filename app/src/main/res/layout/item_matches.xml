@@ -8,7 +8,7 @@
     android:padding="16dp"
     android:background="@color/black">
 
-    <com.google.android.material.imageview.ShapeableImageView
+    <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/MatchImage"
         android:layout_width="80dp"
         android:layout_height="80dp"
@@ -16,8 +16,7 @@
         android:contentDescription="Profile image"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:shapeAppearanceOverlay="@style/CustomRoundedImage" />
+        app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
         android:id="@+id/MatchName"

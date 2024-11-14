@@ -12,65 +12,96 @@
         android:orientation="vertical"
         android:padding="16dp">
 
-        <LinearLayout
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:gravity="center_vertical"
             android:layout_marginBottom="16dp">
 
             <Button
                 android:id="@+id/back"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
-                android:background="@drawable/back"
+                android:background="@drawable/round_back"
                 app:backgroundTint="@color/white"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                android:layout_marginTop="0dp" />
+                app:layout_constraintBottom_toBottomOf="parent" />
 
-            <View
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1" />
-
-            <Button
+            <TextView
+                android:id="@+id/profileTitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:text="Settings"
+                android:textSize="20sp"
+                android:textColor="@color/white"
+                android:fontFamily="sans-serif"
+                android:textStyle="bold"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent" />
+
+            <Button
                 android:id="@+id/confirm"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:text="Done"
-                android:textSize="15dp"
+                android:textSize="17sp"
                 android:fontFamily="sans-serif"
                 android:textColor="@color/blue"
-                android:background="@android:color/transparent"/>
-        </LinearLayout>
+                android:background="@android:color/transparent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
-        <ImageView
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:id="@+id/profileImage"
-            android:src="@mipmap/ic_launcher"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginBottom="24dp"/>
-
-        <!-- Name Field -->
-        <androidx.cardview.widget.CardView
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="16dp"
-            app:cardCornerRadius="8dp"
-            app:cardBackgroundColor="#1E1E1E">
-            <EditText
-                android:layout_width="match_parent"
+            android:layout_marginBottom="16dp" >
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/profileImage"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:src="@mipmap/ic_launcher"
+                android:layout_marginBottom="5dp"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent" />
+            <LinearLayout
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/name"
-                android:hint="Name"
-                android:fontFamily="sans-serif"
-                android:textColor="#FFFFFF"
-                android:textColorHint="#C0C0C0"
-                android:background="@null"
-                android:padding="12dp" />
-        </androidx.cardview.widget.CardView>
+                android:orientation="horizontal"
+                android:gravity="center_horizontal"
+                app:layout_constraintTop_toBottomOf="@id/profileImage"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent">
+
+                <EditText
+                    android:id="@+id/name"
+                    android:hint="Name"
+                    android:textColorHint="#C0C0C0"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/white"
+                    android:fontFamily="sans-serif"
+                    android:layout_gravity="center_horizontal" />
+
+                <EditText
+                    android:id="@+id/age"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="sans-serif"
+                    android:hint="Age"
+                    android:inputType="numberDecimal"
+                    android:textColor="@color/white"
+                    android:textColorHint="#C0C0C0"
+                    android:textSize="20sp" />
+            </LinearLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
         <!-- Phone Field -->
         <androidx.cardview.widget.CardView
@@ -79,94 +110,34 @@
             android:layout_marginBottom="16dp"
             app:cardCornerRadius="8dp"
             app:cardBackgroundColor="#1E1E1E">
-            <EditText
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/phone"
-                android:hint="Phone"
-                android:fontFamily="sans-serif"
-                android:textColor="#FFFFFF"
-                android:textColorHint="#C0C0C0"
-                android:background="@null"
-                android:inputType="phone"
-                android:padding="12dp" />
-        </androidx.cardview.widget.CardView>
 
-        <!-- Age Field -->
-        <androidx.cardview.widget.CardView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="16dp"
-            app:cardCornerRadius="8dp"
-            app:cardBackgroundColor="#1E1E1E">
-            <EditText
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/age"
-                android:hint="Age"
-                android:textColor="#FFFFFF"
-                android:textColorHint="#C0C0C0"
-                android:fontFamily="sans-serif"
-                android:background="@null"
-                android:inputType="numberDecimal"
-                android:padding="12dp" />
-        </androidx.cardview.widget.CardView>
+                android:orientation="horizontal"
+                android:padding="12dp">
 
-        <!-- Education Field -->
-        <androidx.cardview.widget.CardView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="16dp"
-            app:cardCornerRadius="8dp"
-            app:cardBackgroundColor="#1E1E1E">
-            <EditText
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/education"
-                android:hint="Education"
-                android:fontFamily="sans-serif"
-                android:textColor="#FFFFFF"
-                android:textColorHint="#C0C0C0"
-                android:background="@null"
-                android:padding="12dp" />
-        </androidx.cardview.widget.CardView>
+                <!-- Phone Icon -->
+                <ImageView
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:src="@drawable/phone"
+                    android:layout_marginEnd="8dp" />
 
-        <!-- Pet Field -->
-        <androidx.cardview.widget.CardView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="16dp"
-            app:cardCornerRadius="8dp"
-            app:cardBackgroundColor="#1E1E1E">
-            <EditText
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/pet"
-                android:hint="Pet"
-                android:fontFamily="sans-serif"
-                android:textColor="#FFFFFF"
-                android:textColorHint="#C0C0C0"
-                android:background="@null"
-                android:padding="12dp" />
-        </androidx.cardview.widget.CardView>
+                <!-- Phone EditText -->
+                <EditText
+                    android:id="@+id/phone"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:hint="Phone"
+                    android:fontFamily="sans-serif"
+                    android:textColor="#FFFFFF"
+                    android:textColorHint="#C0C0C0"
+                    android:background="@null"
+                    android:inputType="phone" />
+            </LinearLayout>
 
-        <!-- Bio Field -->
-        <androidx.cardview.widget.CardView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="16dp"
-            app:cardCornerRadius="8dp"
-            app:cardBackgroundColor="#1E1E1E">
-            <EditText
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/bio"
-                android:hint="Bio"
-                android:fontFamily="sans-serif"
-                android:textColor="#FFFFFF"
-                android:textColorHint="#C0C0C0"
-                android:background="@null"
-                android:padding="12dp" />
         </androidx.cardview.widget.CardView>
 
         <!-- Looking For Field -->
@@ -176,17 +147,232 @@
             android:layout_marginBottom="16dp"
             app:cardCornerRadius="8dp"
             app:cardBackgroundColor="#1E1E1E">
-            <EditText
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/lookingfor"
-                android:hint="Looking for"
-                android:fontFamily="sans-serif"
-                android:textColor="#FFFFFF"
-                android:textColorHint="#C0C0C0"
-                android:background="@null"
-                android:padding="12dp" />
+                android:orientation="horizontal"
+                android:padding="12dp">
+
+                <ImageView
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:src="@drawable/eye"
+                    android:layout_marginEnd="8dp"
+                    android:scaleType="centerInside"/>
+
+                <EditText
+                    android:id="@+id/lookingfor"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:hint="Looking for"
+                    android:fontFamily="sans-serif"
+                    android:textColor="#FFFFFF"
+                    android:textColorHint="#C0C0C0"
+                    android:background="@null" />
+            </LinearLayout>
+
         </androidx.cardview.widget.CardView>
+
+        <!-- Bio Field -->
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            app:cardCornerRadius="8dp"
+            app:cardBackgroundColor="#1E1E1E">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="12dp">
+
+                <ImageView
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:src="@drawable/bio"
+                    android:layout_marginEnd="8dp"
+                    android:scaleType="centerInside"/>
+
+                <EditText
+                    android:id="@+id/bio"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:hint="Bio"
+                    android:fontFamily="sans-serif"
+                    android:textColor="#FFFFFF"
+                    android:textColorHint="#C0C0C0"
+                    android:background="@null" />
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+
+
+        <!-- Education Field -->
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            app:cardCornerRadius="8dp"
+            app:cardBackgroundColor="#1E1E1E">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="12dp">
+
+                <ImageView
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:src="@drawable/edu"
+                    android:layout_marginEnd="8dp"
+                    android:scaleType="centerInside"/>
+
+                <EditText
+                    android:id="@+id/education"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:hint="Education"
+                    android:fontFamily="sans-serif"
+                    android:textColor="#FFFFFF"
+                    android:textColorHint="#C0C0C0"
+                    android:background="@null" />
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+
+        <!-- Pet Field -->
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            app:cardCornerRadius="8dp"
+            app:cardBackgroundColor="#1E1E1E">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="12dp">
+
+                <ImageView
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:src="@drawable/paw"
+                    android:layout_marginEnd="8dp"
+                    android:scaleType="centerInside"/>
+
+                <EditText
+                    android:id="@+id/pet"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:hint="Pet"
+                    android:fontFamily="sans-serif"
+                    android:textColor="#FFFFFF"
+                    android:textColorHint="#C0C0C0"
+                    android:background="@null" />
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+
+        <!-- Zodiac Field -->
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            app:cardCornerRadius="8dp"
+            app:cardBackgroundColor="#1E1E1E">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="12dp">
+
+                <ImageView
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:src="@drawable/zodiac"
+                    android:layout_marginEnd="8dp"
+                    android:scaleType="centerInside"/>
+
+                <EditText
+                    android:id="@+id/zodiac"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:hint="Zodiac"
+                    android:fontFamily="sans-serif"
+                    android:textColor="#FFFFFF"
+                    android:textColorHint="#C0C0C0"
+                    android:background="@null" />
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+
+        <!-- Persional Type -->
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            app:cardCornerRadius="8dp"
+            app:cardBackgroundColor="#1E1E1E">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="12dp">
+
+                <ImageView
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:src="@drawable/plugin"
+                    android:layout_marginEnd="8dp"
+                    android:scaleType="centerInside"/>
+
+                <EditText
+                    android:id="@+id/personalType"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:hint="Persional Type"
+                    android:fontFamily="sans-serif"
+                    android:textColor="#FFFFFF"
+                    android:textColorHint="#C0C0C0"
+                    android:background="@null" />
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+
+        <!-- Drinking/ Smoking -->
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            app:cardCornerRadius="8dp"
+            app:cardBackgroundColor="#1E1E1E">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="12dp">
+
+                <ImageView
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:src="@drawable/bottle"
+                    android:layout_marginEnd="8dp"
+                    android:scaleType="centerInside"/>
+
+                <EditText
+                    android:id="@+id/drinkingSmoking"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:hint="Drinking/Smoking"
+                    android:fontFamily="sans-serif"
+                    android:textColor="#FFFFFF"
+                    android:textColorHint="#C0C0C0"
+                    android:background="@null" />
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+
 
         <!-- Sign Out Button -->
         <Button
@@ -195,9 +381,10 @@
             android:text="Sign Out"
             android:fontFamily="sans-serif"
             android:onClick="logoutUser"
-            android:backgroundTint="#B00020"
-            android:textColor="#FFFFFF"
-            android:padding="12dp"
-            android:background="@drawable/rounded_button" />
+            android:background="@drawable/button_background"
+            app:backgroundTint="@null"
+            android:textColor="@color/white"
+            android:textStyle="bold"
+            android:padding="12dp" />
     </LinearLayout>
 </ScrollView>
