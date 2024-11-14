@@ -1,5 +1,6 @@
 package com.example.datingapp.Matches;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -13,7 +14,11 @@ import androidx.core.view.WindowInsetsCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.datingapp.ChooseLoginOrRegistationActivity;
+import com.example.datingapp.LoginActivity;
+import com.example.datingapp.MainActivity;
 import com.example.datingapp.R;
+import com.example.datingapp.SettingsActivity;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -54,6 +59,8 @@ public class   MatchesActivity extends AppCompatActivity {
         mBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Intent intent = new Intent(MatchesActivity.this, MainActivity.class);
+                startActivity(intent);
                 finish();
             }
         });
@@ -107,9 +114,19 @@ public class   MatchesActivity extends AppCompatActivity {
             }
         });
     }
-
     private ArrayList<MatchesObject> resultsMatches = new ArrayList<MatchesObject>();
     private List<MatchesObject> getDataSetMatches() {
         return resultsMatches;
+    }
+    public void goHome(View view){
+        Intent intent = new Intent(MatchesActivity.this, MainActivity.class);
+        startActivity(intent);
+        finish();
+        return;
+    }
+    public void goToSettings(View view){
+        Intent intent = new Intent(MatchesActivity.this, SettingsActivity.class);
+        startActivity(intent);
+        return;
     }
 }
