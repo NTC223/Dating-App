@@ -43,6 +43,7 @@
         app:layout_constraintBottom_toBottomOf="@+id/MatchImage"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@id/MatchName"
-        app:layout_constraintTop_toBottomOf="@id/MatchName" />
+        app:layout_constraintTop_toBottomOf="@id/MatchName"
+        android:visibility="gone"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

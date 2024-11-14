@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -39,6 +40,8 @@ public class MainActivity extends AppCompatActivity {
 
     private DatabaseReference usersDb;
 
+    private ImageButton mDislikeButton, mLikeButton;
+
     ListView listView;
     List<cards> rowItems;
 
@@ -51,6 +54,9 @@ public class MainActivity extends AppCompatActivity {
 
         mAuth = FirebaseAuth.getInstance();
         currentUid = mAuth.getCurrentUser().getUid();
+
+        mDislikeButton = findViewById(R.id.dislike);
+        mLikeButton = findViewById(R.id.like);
 
         checkUserSex();
 
@@ -97,14 +103,30 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
-
-
         // Optionally add an OnItemClickListener
         flingContainer.setOnItemClickListener(new SwipeFlingAdapterView.OnItemClickListener() {
             @Override
             public void onItemClicked(int itemPosition, Object dataObject) {
                 Toast.makeText(MainActivity.this, "Clicked!", Toast.LENGTH_SHORT).show();
 
+            }
+        });
+
+        mDislikeButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (arrayAdapter.getCount() > 0) {
+                    flingContainer.getTopCardListener().selectLeft();
+                }
+            }
+        });
+
+        mLikeButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (arrayAdapter.getCount() > 0) {
+                    flingContainer.getTopCardListener().selectRight();
+                }
             }
         });
     }

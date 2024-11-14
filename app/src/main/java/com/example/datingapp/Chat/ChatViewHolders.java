@@ -13,13 +13,14 @@ import com.example.datingapp.R;
 
 public class ChatViewHolders extends RecyclerView.ViewHolder implements View.OnClickListener {
     public TextView mMessage;
-    public LinearLayout mContainer;
+    public ImageView mImageView;
+
     public ChatViewHolders(View itemView){
         super(itemView);
         itemView.setOnClickListener(this);
 
         mMessage = itemView.findViewById(R.id.message);
-        mContainer = itemView.findViewById(R.id.container);
+        mImageView = itemView.findViewById(R.id.imageProfile);
     }
     @Override
     public void onClick(View view){
