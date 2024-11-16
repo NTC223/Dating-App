@@ -44,9 +44,8 @@ import java.util.Map;
 
 public class SettingsActivity extends AppCompatActivity {
 
-    private EditText mNameField, mPhoneField, mAgeField, mEducationField, mPetField, mBioFiled, mLookingforField;
+    private EditText mNameField, mPhoneField, mAgeField, mEducationField, mPetField, mBioField, mLookingforField, mDrinkingSmokingField, mPersonalTypeField, mZodiacField;
 
-//    private ImageButton;
     private Button mConfirm, mBack;
 
     private ImageView mProfileImage;
@@ -54,7 +53,7 @@ public class SettingsActivity extends AppCompatActivity {
     private FirebaseAuth mAuth;
     private DatabaseReference mUserDatabase;
 
-    private String userId, name, phone, profileImageUrl, userSex, age, education, pet, bio, lookingfor;
+    private String userId, name, phone, profileImageUrl, userSex, age, education, pet, bio, lookingfor, zodiac, drinkingSmoking, personalType;
 
     private Uri resultUri;
 
@@ -68,8 +67,11 @@ public class SettingsActivity extends AppCompatActivity {
         mAgeField = (EditText) findViewById(R.id.age);
         mEducationField = (EditText) findViewById(R.id.education);
         mPetField = (EditText) findViewById(R.id.pet);
-        mBioFiled = (EditText) findViewById(R.id.bio);
+        mBioField = (EditText) findViewById(R.id.bio);
         mLookingforField = (EditText) findViewById(R.id.lookingfor);
+        mZodiacField = (EditText) findViewById(R.id.zodiac);
+        mDrinkingSmokingField = (EditText) findViewById(R.id.drinkingSmoking);
+        mPersonalTypeField = (EditText) findViewById(R.id.personalType);
 
         mProfileImage = (ImageView) findViewById(R.id.profileImage);
 
@@ -135,11 +137,23 @@ public class SettingsActivity extends AppCompatActivity {
                     }
                     if(map.get("bio")!=null){
                         bio = map.get("bio").toString();
-                        mBioFiled.setText(bio);
+                        mBioField.setText(bio);
                     }
                     if(map.get("lookingfor")!=null){
                         lookingfor = map.get("lookingfor").toString();
                         mLookingforField.setText(lookingfor);
+                    }
+                    if(map.get("personalType")!=null){
+                        personalType = map.get("personalType").toString();
+                        mPersonalTypeField.setText(personalType);
+                    }
+                    if(map.get("zodiac")!=null){
+                        zodiac = map.get("zodiac").toString();
+                        mZodiacField.setText(zodiac);
+                    }
+                    if(map.get("drinkingSmoking")!=null){
+                        drinkingSmoking = map.get("drinkingSmoking").toString();
+                        mDrinkingSmokingField.setText(drinkingSmoking);
                     }
                     if(map.get("sex")!=null){
                         userSex = map.get("sex").toString();
@@ -172,8 +186,11 @@ public class SettingsActivity extends AppCompatActivity {
         age = mAgeField.getText().toString();
         education = mEducationField.getText().toString();
         pet = mPetField.getText().toString();
-        bio = mBioFiled.getText().toString();
+        bio = mBioField.getText().toString();
         lookingfor = mLookingforField.getText().toString();
+        personalType = mPersonalTypeField.getText().toString();
+        zodiac = mZodiacField.getText().toString();
+        drinkingSmoking = mDrinkingSmokingField.getText().toString();
 
         Map userInfo = new HashMap<>();
         userInfo.put("name",name);
@@ -183,6 +200,10 @@ public class SettingsActivity extends AppCompatActivity {
         userInfo.put("pet", pet);
         userInfo.put("bio",bio);
         userInfo.put("lookingfor",lookingfor);
+        userInfo.put("zodiac",zodiac);
+        userInfo.put("personalType", personalType);
+        userInfo.put("drinkingSmoking", drinkingSmoking);
+
         mUserDatabase.updateChildren(userInfo);
         if (resultUri != null){
             StorageReference filepath = FirebaseStorage.getInstance().getReference().child("profileImages").child(userId);

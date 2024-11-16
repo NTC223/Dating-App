@@ -101,6 +101,9 @@ public class RegistationActivity extends AppCompatActivity {
                             userInfo.put("education","");
                             userInfo.put("lookingfor","");
                             userInfo.put("pet","");
+                            userInfo.put("zodiac", "");
+                            userInfo.put("personalType", "");
+                            userInfo.put("drinkingSmoking", "");
                             currentUserDb.updateChildren(userInfo);
                         }
                     }
