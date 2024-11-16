@@ -27,9 +27,12 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 
 import android.widget.ImageView;
@@ -111,6 +114,7 @@ public class ChatActivity extends AppCompatActivity {
             Map newMessage = new HashMap();
             newMessage.put("createdByUser", currentUserId);
             newMessage.put("text", sendMessageText);
+            newMessage.put("date", getReadableDateTime(new Date()));
             newMessageDb.setValue(newMessage);
         }
         mSendEditText.setText(null);
@@ -133,6 +137,10 @@ public class ChatActivity extends AppCompatActivity {
         });
     }
 
+    private String getReadableDateTime(Date date){
+        return new SimpleDateFormat("MMMM dd, yyyy - hh:mm a", Locale.getDefault()).format(date);
+    }
+
     private void getChatMessage() {
         mDatabaseChat.addChildEventListener(new ChildEventListener() {
             @Override
@@ -140,6 +148,7 @@ public class ChatActivity extends AppCompatActivity {
                 if(snapshot.exists()){
                     String message = null;
                     String createdByUser = null;
+                    String date = null;
 
                     if(snapshot.child("text").getValue()!=null){
                         message = snapshot.child("text").getValue().toString();
@@ -147,8 +156,12 @@ public class ChatActivity extends AppCompatActivity {
                     if(snapshot.child("createdByUser").getValue()!=null){
                         createdByUser = snapshot.child("createdByUser").getValue().toString();
                     }
+                    if(snapshot.child("date").getValue()!=null){
+                        date = snapshot.child("date").getValue().toString();
+                    }
                     final String messageFinal = message;
                     final String createdByUserFinal = createdByUser;
+                    final String dateFinal = date;
                     mDatabaseProfileImageUrl = FirebaseDatabase.getInstance().getReference().child("Users").child(createdByUser).child("profileImageUrl");
                     mDatabaseProfileImageUrl.addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override
@@ -161,7 +174,7 @@ public class ChatActivity extends AppCompatActivity {
                                         currentUserBoolean = true;
                                     }
 
-                                    ChatObject newMessage =  new ChatObject(messageFinal, currentUserBoolean, profileImageUrl);
+                                    ChatObject newMessage =  new ChatObject(messageFinal, currentUserBoolean, profileImageUrl, dateFinal);
                                     resultsChat.add(newMessage);
 
                                     int count = resultsChat.size();
