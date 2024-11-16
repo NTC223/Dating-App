@@ -93,18 +93,21 @@ public class   MatchesActivity extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if(snapshot.exists()){
-                    String userid = snapshot.getKey();
+                    String userId = snapshot.getKey();
                     String name = "";
                     String profileImageUrl = "";
+                    String chatId = "";
                     if(snapshot.child("name").getValue()!=null){
                         name = snapshot.child("name").getValue().toString();
                     }
                     if(snapshot.child("profileImageUrl").getValue()!=null){
                         profileImageUrl = snapshot.child("profileImageUrl").getValue().toString();
                     }
-                    MatchesObject obj = new MatchesObject(userid, name, profileImageUrl);
-                    resultsMatches.add(obj);
-                    mMatchesAdapter.notifyDataSetChanged();
+                    if(snapshot.child("connections").child("matches").child(currentUserId).child("chatId").getValue().toString()!=null){
+                        chatId = snapshot.child("connections").child("matches").child(currentUserId).child("chatId").getValue().toString();
+                        System.out.println(chatId);
+                    }
+                    FetchLastMessageAndDate(userId, name, profileImageUrl, chatId);
                 }
             }
 
@@ -114,6 +117,36 @@ public class   MatchesActivity extends AppCompatActivity {
             }
         });
     }
+    private void FetchLastMessageAndDate(String userId, String name, String profileImageUrl, String chatId){
+        DatabaseReference chatDb = FirebaseDatabase.getInstance().getReference().child("Chat").child(chatId);
+        chatDb.orderByKey().limitToLast(1).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                String date = "";
+                String text = "";
+                String createdByUser = "";
+                if (snapshot.exists() && snapshot.getChildren().iterator().hasNext()) {
+                    DataSnapshot lastMessageSnapShot = snapshot.getChildren().iterator().next();
+
+                    date = lastMessageSnapShot.child("date").getValue().toString();
+                    text = lastMessageSnapShot.child("text").getValue().toString();
+                    createdByUser = lastMessageSnapShot.child("createdByUser").getKey().toString();
+                    if (!createdByUser.equals(currentUserId)){
+                        text = "Bạn: " + text;
+                    }
+                }
+                MatchesObject obj = new MatchesObject(userId, name, profileImageUrl, text, date);
+                resultsMatches.add(obj);
+                mMatchesAdapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+    }
+
     private ArrayList<MatchesObject> resultsMatches = new ArrayList<MatchesObject>();
     private List<MatchesObject> getDataSetMatches() {
         return resultsMatches;
