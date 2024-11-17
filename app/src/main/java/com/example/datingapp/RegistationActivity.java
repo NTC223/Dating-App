@@ -96,6 +96,12 @@ public class RegistationActivity extends AppCompatActivity {
                             userInfo.put("name", name);
                             userInfo.put("sex",radioButton.getText().toString());
                             userInfo.put("profileImageUrl","default");
+                            userInfo.put("image1","default");
+                            userInfo.put("image2","default");
+                            userInfo.put("image3","default");
+                            userInfo.put("image4","default");
+                            userInfo.put("image5","default");
+                            userInfo.put("image6","default");
                             userInfo.put("age","");
                             userInfo.put("bio","");
                             userInfo.put("education","");

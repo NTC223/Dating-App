@@ -9,21 +9,13 @@ import android.provider.MediaStore;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 
-import androidx.activity.EdgeToEdge;
-import androidx.activity.result.ActivityResult;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 
 import com.bumptech.glide.Glide;
-import com.example.datingapp.Matches.MatchesActivity;
-import com.google.android.gms.auth.api.signin.internal.Storage;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
@@ -36,10 +28,11 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
-import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class SettingsActivity extends AppCompatActivity {
@@ -48,7 +41,12 @@ public class SettingsActivity extends AppCompatActivity {
 
     private Button mConfirm, mBack;
 
-    private ImageView mProfileImage;
+    private ImageView[] imageViews;
+    private ImageView mProfileImage, mImage1, mImage2, mImage3, mImage4, mImage5, mImage6;
+    private String[] mapKeys = {"profileImageUrl", "image1", "image2", "image3", "image4", "image5", "image6"};
+    private int[] defaultImages = {R.mipmap.ic_launcher, R.drawable.image_placeholder, R.drawable.image_placeholder, R.drawable.image_placeholder, R.drawable.image_placeholder, R.drawable.image_placeholder, R.drawable.image_placeholder};
+    private List<Uri> imageUris = new ArrayList<>();
+    private Map<String, String> uploadedImageUrls = new HashMap<>();
 
     private FirebaseAuth mAuth;
     private DatabaseReference mUserDatabase;
@@ -74,6 +72,15 @@ public class SettingsActivity extends AppCompatActivity {
         mPersonalTypeField = (EditText) findViewById(R.id.personalType);
 
         mProfileImage = (ImageView) findViewById(R.id.profileImage);
+        mImage1 = (ImageView) findViewById(R.id.image1);
+        mImage2 = (ImageView) findViewById(R.id.image2);
+        mImage3 = (ImageView) findViewById(R.id.image3);
+        mImage4 = (ImageView) findViewById(R.id.image4);
+        mImage5 = (ImageView) findViewById(R.id.image5);
+        mImage6 = (ImageView) findViewById(R.id.image6);
+        imageViews = new ImageView[]{
+                mProfileImage, mImage1, mImage2, mImage3, mImage4, mImage5, mImage6
+        };
 
         mBack = (Button) findViewById(R.id.back);
         mConfirm = (Button) findViewById(R.id.confirm);
@@ -85,14 +92,17 @@ public class SettingsActivity extends AppCompatActivity {
 
         getUserInfo();
 
-        mProfileImage.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(Intent.ACTION_PICK);
-                intent.setType("image/*");
-                startActivityForResult(intent, 1);
-            }
-        });
+        for (int i=0;i< imageViews.length; i++){
+            final int index = i;
+            imageViews[i].setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intent = new Intent(Intent.ACTION_PICK);
+                    intent.setType("image/*");
+                    startActivityForResult(intent, index);
+                }
+            });
+        }
 
         mConfirm.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -158,16 +168,22 @@ public class SettingsActivity extends AppCompatActivity {
                     if(map.get("sex")!=null){
                         userSex = map.get("sex").toString();
                     }
-                    Glide.with(getApplication()).clear(mProfileImage);
-                    if(map.get("profileImageUrl") != null){
-                        profileImageUrl = map.get("profileImageUrl").toString();
-                        switch (profileImageUrl){
-                            case "default":
-                                Glide.with(getApplication()).load(R.mipmap.ic_launcher).into(mProfileImage);
-                                break;
-                            default:
-                                Glide.with(getApplication()).load(profileImageUrl).into(mProfileImage);
-                                break;
+                    for (int i=0; i < imageViews.length; i++){
+                        ImageView imageView = imageViews[i];
+                        String key = mapKeys[i];
+                        int defaultImage = defaultImages[i];
+
+                        Glide.with(getApplication()).clear(imageView);
+                        if(map.get(key) != null){
+                            String imageUrl = map.get(key).toString();
+                            switch (imageUrl){
+                                case "default":
+                                    Glide.with(getApplication()).load(defaultImage).into(imageView);
+                                    break;
+                                default:
+                                    Glide.with(getApplication()).load(imageUrl).into(imageView);
+                                    break;
+                            }
                         }
                     }
                 }
@@ -191,7 +207,6 @@ public class SettingsActivity extends AppCompatActivity {
         personalType = mPersonalTypeField.getText().toString();
         zodiac = mZodiacField.getText().toString();
         drinkingSmoking = mDrinkingSmokingField.getText().toString();
-
         Map userInfo = new HashMap<>();
         userInfo.put("name",name);
         userInfo.put("phone",phone);
@@ -203,56 +218,90 @@ public class SettingsActivity extends AppCompatActivity {
         userInfo.put("zodiac",zodiac);
         userInfo.put("personalType", personalType);
         userInfo.put("drinkingSmoking", drinkingSmoking);
-
         mUserDatabase.updateChildren(userInfo);
-        if (resultUri != null){
-            StorageReference filepath = FirebaseStorage.getInstance().getReference().child("profileImages").child(userId);
-            Bitmap bitmap = null;
 
-            try {
-                bitmap = MediaStore.Images.Media.getBitmap(getApplication().getContentResolver(), resultUri);
-            } catch (IOException e) {
-                throw new RuntimeException(e);
+        uploadAllImages();
+        finish();
+    }
+
+    private void uploadAllImages() {
+        for (int i = 0; i < imageUris.size(); i++) {
+            Uri imageUri = imageUris.get(i);
+            if (imageUri != null) {
+                final int index = i; // Biến tạm để truyền vào callback
+                uploadImage(imageUri, index);
             }
+        }
+    }
 
-            ByteArrayOutputStream baos = new ByteArrayOutputStream();
-            bitmap.compress(Bitmap.CompressFormat.JPEG, 20, baos);
-            byte[] data = baos.toByteArray();
-            UploadTask uploadTask = filepath.putBytes(data);
-            uploadTask.addOnFailureListener(new OnFailureListener() {
-                @Override
-                public void onFailure(@NonNull Exception e) {
-                    finish();
-                }
-            });
-            uploadTask.addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-                @Override
-                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                    taskSnapshot.getStorage().getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
-                        @Override
-                        public void onSuccess(Uri downloadUrl) {
-                            Map userInfo = new HashMap<>();
-                            userInfo.put("profileImageUrl",downloadUrl.toString());
-                            mUserDatabase.updateChildren(userInfo);
-                            finish();
-                        }
-                    });
-                }
-            });
+    private void saveImageUrlsToDatabase() {
+        Map<String, Object> userInfo = new HashMap<>();
+        for (Map.Entry<String, String> entry : uploadedImageUrls.entrySet()) {
+            userInfo.put(entry.getKey(), entry.getValue());
+        }
+        mUserDatabase.updateChildren(userInfo);
+    }
 
-        }else {
-            finish();
+    private void uploadImage(Uri imageUri, int index) {
+        String imageName = mapKeys[index];
+
+        StorageReference filepath = FirebaseStorage.getInstance().getReference().child("profileImages").child(userId).child(imageName);
+        Bitmap bitmap = null;
+
+        try {
+            bitmap = MediaStore.Images.Media.getBitmap(getApplication().getContentResolver(), imageUri);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 20, baos);
+        byte[] data = baos.toByteArray();
+        UploadTask uploadTask = filepath.putBytes(data);
+        uploadTask.addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+            }
+        });
+        uploadTask.addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+            @Override
+            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                taskSnapshot.getStorage().getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                    @Override
+                    public void onSuccess(Uri downloadUrl) {
+                        Map userInfo = new HashMap<>();
+                        userInfo.put(imageName, downloadUrl.toString());
+                        mUserDatabase.updateChildren(userInfo);
+                    }
+                });
+            }
+        });
+    }
+
+    private void checkUploadCompletion() {
+        if (uploadedImageUrls.size() == imageUris.size()) {
+            saveImageUrlsToDatabase();
         }
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if(requestCode == 1 && resultCode == Activity.RESULT_OK){
+        if(resultCode == Activity.RESULT_OK && data != null){
             final Uri imageUri = data.getData();
             resultUri = imageUri;
-            mProfileImage.setImageURI(resultUri);
+            if (requestCode >= 0 && requestCode < imageViews.length){
+                imageViews[requestCode].setImageURI(imageUri);
+                addImage(imageUri,requestCode);
+            }
         }
+    }
+
+    private void addImage(Uri imageUri, int imageIndex) {
+        while(imageUris.size() <= imageIndex){
+            imageUris.add(null);
+        }
+        imageUris.set(imageIndex, imageUri);
     }
 
     public void logoutUser(View view){
