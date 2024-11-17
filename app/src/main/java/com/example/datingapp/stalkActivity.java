@@ -26,7 +26,10 @@ import java.util.Map;
 public class stalkActivity extends AppCompatActivity {
     private TextView nameField, phoneField, ageField, educationField, petField, bioField, lookingforField, zodiacField, drinkingSmokingField, personalTypeField;
     private String  userId, name, phone, profileImageUrl, age, education, pet, bio, lookingfor, zodiac, drinkingSmoking, personalType;
-    private ImageView profileImage;
+    private ImageView[] imageViews;
+    private ImageView ProfileImage, Image1, Image2, Image3, Image4, Image5, Image6;
+    private String[] mapKeys = {"profileImageUrl", "image1", "image2", "image3", "image4", "image5", "image6"};
+    private int[] defaultImages = {R.mipmap.ic_launcher, R.drawable.image_placeholder, R.drawable.image_placeholder, R.drawable.image_placeholder, R.drawable.image_placeholder, R.drawable.image_placeholder, R.drawable.image_placeholder};
     private Button mBack;
     private DatabaseReference userDatabase;
     @Override
@@ -47,7 +50,16 @@ public class stalkActivity extends AppCompatActivity {
         zodiacField = (TextView) findViewById(R.id.zodiac);
         drinkingSmokingField = (TextView) findViewById(R.id.drinkingSmoking);
         personalTypeField = (TextView) findViewById(R.id.personalType);
-        profileImage = (ImageView) findViewById(R.id.profileImage);
+        ProfileImage = (ImageView) findViewById(R.id.profileImage);
+        Image1 = (ImageView) findViewById(R.id.image1);
+        Image2 = (ImageView) findViewById(R.id.image2);
+        Image3 = (ImageView) findViewById(R.id.image3);
+        Image4 = (ImageView) findViewById(R.id.image4);
+        Image5 = (ImageView) findViewById(R.id.image5);
+        Image6 = (ImageView) findViewById(R.id.image6);
+        imageViews = new ImageView[]{
+                ProfileImage, Image1, Image2, Image3, Image4, Image5, Image6
+        };
 
         userDatabase = FirebaseDatabase.getInstance().getReference().child("Users").child(userId);
 
@@ -107,16 +119,22 @@ public class stalkActivity extends AppCompatActivity {
                         drinkingSmoking = map.get("drinkingSmoking").toString();
                         drinkingSmokingField.setText(drinkingSmoking);
                     }
-                    Glide.with(getApplication()).clear(profileImage);
-                    if(map.get("profileImageUrl") != null){
-                        profileImageUrl = map.get("profileImageUrl").toString();
-                        switch (profileImageUrl){
-                            case "default":
-                                Glide.with(getApplication()).load(R.mipmap.ic_launcher).into(profileImage);
-                                break;
-                            default:
-                                Glide.with(getApplication()).load(profileImageUrl).into(profileImage);
-                                break;
+                    for (int i=0; i < imageViews.length; i++){
+                        ImageView imageView = imageViews[i];
+                        String key = mapKeys[i];
+                        int defaultImage = defaultImages[i];
+
+                        Glide.with(getApplication()).clear(imageView);
+                        if(map.get(key) != null){
+                            String imageUrl = map.get(key).toString();
+                            switch (imageUrl){
+                                case "default":
+                                    Glide.with(getApplication()).load(defaultImage).into(imageView);
+                                    break;
+                                default:
+                                    Glide.with(getApplication()).load(imageUrl).into(imageView);
+                                    break;
+                            }
                         }
                     }
                 }
