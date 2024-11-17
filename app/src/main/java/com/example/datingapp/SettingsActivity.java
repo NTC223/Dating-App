@@ -47,6 +47,7 @@ public class SettingsActivity extends AppCompatActivity {
     private int[] defaultImages = {R.mipmap.ic_launcher, R.drawable.image_placeholder, R.drawable.image_placeholder, R.drawable.image_placeholder, R.drawable.image_placeholder, R.drawable.image_placeholder, R.drawable.image_placeholder};
     private List<Uri> imageUris = new ArrayList<>();
     private Map<String, String> uploadedImageUrls = new HashMap<>();
+    private List<String> imageurls = new ArrayList<>();
 
     private FirebaseAuth mAuth;
     private DatabaseReference mUserDatabase;
@@ -104,6 +105,17 @@ public class SettingsActivity extends AppCompatActivity {
             });
         }
 
+        for (int i=0;i< imageViews.length; i++){
+            final int index = i;
+            imageViews[i].setOnLongClickListener(new View.OnLongClickListener(){
+                @Override
+                public boolean onLongClick(View view) {
+                    showFullScreenImage(index);
+                    return true;
+                }
+            });
+        }
+
         mConfirm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -117,6 +129,12 @@ public class SettingsActivity extends AppCompatActivity {
                 return;
             }
         });
+    }
+
+    private void showFullScreenImage(int index) {
+        Intent intent = new Intent(SettingsActivity.this, FullScreenImageActivity.class);
+        intent.putExtra("imageUrl", imageurls.get(index));
+        startActivity(intent);
     }
 
     private void getUserInfo(){
@@ -184,6 +202,7 @@ public class SettingsActivity extends AppCompatActivity {
                                     Glide.with(getApplication()).load(imageUrl).into(imageView);
                                     break;
                             }
+                            imageurls.add(imageUrl);
                         }
                     }
                 }
