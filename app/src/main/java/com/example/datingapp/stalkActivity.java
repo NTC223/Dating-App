@@ -1,5 +1,7 @@
 package com.example.datingapp;
 
+import android.app.Dialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -21,6 +23,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 public class stalkActivity extends AppCompatActivity {
@@ -30,6 +34,7 @@ public class stalkActivity extends AppCompatActivity {
     private ImageView ProfileImage, Image1, Image2, Image3, Image4, Image5, Image6;
     private String[] mapKeys = {"profileImageUrl", "image1", "image2", "image3", "image4", "image5", "image6"};
     private int[] defaultImages = {R.mipmap.ic_launcher, R.drawable.image_placeholder, R.drawable.image_placeholder, R.drawable.image_placeholder, R.drawable.image_placeholder, R.drawable.image_placeholder, R.drawable.image_placeholder};
+    private List<String> imageurls = new ArrayList<>();
     private Button mBack;
     private DatabaseReference userDatabase;
     @Override
@@ -65,6 +70,17 @@ public class stalkActivity extends AppCompatActivity {
 
         getUserInfo();
 
+        for (int i=0;i< imageViews.length; i++){
+            final int index = i;
+            imageViews[i].setOnLongClickListener(new View.OnLongClickListener(){
+                @Override
+                public boolean onLongClick(View view) {
+                    showFullScreenImage(index);
+                    return true;
+                }
+            });
+        }
+
         mBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -73,6 +89,13 @@ public class stalkActivity extends AppCompatActivity {
             }
         });
     }
+
+    private void showFullScreenImage(int index) {
+        Intent intent = new Intent(stalkActivity.this, FullScreenImageActivity.class);
+        intent.putExtra("imageUrl", imageurls.get(index));
+        startActivity(intent);
+    }
+
     private void getUserInfo(){
         userDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -135,6 +158,7 @@ public class stalkActivity extends AppCompatActivity {
                                     Glide.with(getApplication()).load(imageUrl).into(imageView);
                                     break;
                             }
+                            imageurls.add(imageUrl);
                         }
                     }
                 }

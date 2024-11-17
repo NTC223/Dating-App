@@ -32,6 +32,7 @@
         <activity
             android:name=".RegistationActivity"
             android:exported="false" />
+        <activity android:name=".FullScreenImageActivity"/>
         <activity
             android:name=".ChooseLoginOrRegistationActivity"
             android:exported="true">
