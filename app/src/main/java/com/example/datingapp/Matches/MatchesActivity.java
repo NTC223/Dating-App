@@ -2,6 +2,7 @@ package com.example.datingapp.Matches;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.service.autofill.FieldClassification;
 import android.view.View;
 import android.widget.Button;
 
@@ -14,6 +15,7 @@ import androidx.core.view.WindowInsetsCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.datingapp.Chat.ChatObject;
 import com.example.datingapp.ChooseLoginOrRegistationActivity;
 import com.example.datingapp.LoginActivity;
 import com.example.datingapp.MainActivity;
@@ -29,6 +31,8 @@ import com.google.firebase.database.ValueEventListener;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
@@ -142,6 +146,8 @@ public class   MatchesActivity extends AppCompatActivity {
                     text = lastMessageSnapShot.child("text").getValue().toString();
                     createdByUser = lastMessageSnapShot.child("createdByUser").getKey().toString();
                     if (!createdByUser.equals(currentUserId)){
+                        System.out.println("1" + createdByUser);
+                        System.out.println("2" + currentUserId);
                         text = "Bạn: " + text;
                     }
                     int remainingDistance = 33 - date.length();
@@ -150,6 +156,7 @@ public class   MatchesActivity extends AppCompatActivity {
                 }
                 MatchesObject obj = new MatchesObject(userId, name, profileImageUrl, text, date);
                 resultsMatches.add(obj);
+                sortMatchesByDate(resultsMatches);
                 mMatchesAdapter.notifyDataSetChanged();
             }
 
@@ -162,7 +169,7 @@ public class   MatchesActivity extends AppCompatActivity {
     public static String getDayOrDateString(String dateString) throws ParseException {
         SimpleDateFormat inputFormat = new SimpleDateFormat("MMMM dd, yyyy - hh:mm a", Locale.getDefault());
         Date date = inputFormat.parse(dateString);
-        
+
         Date currentDate = new Date();
 
         // Tính số ngày chênh lệch giữa ngày hiện tại và ngày đầu vào
@@ -212,6 +219,25 @@ public class   MatchesActivity extends AppCompatActivity {
             default:
                 return "";
         }
+    }
+
+    public static void sortMatchesByDate(List<MatchesObject> resultsMatches) {
+        SimpleDateFormat dateFormat = new SimpleDateFormat("MMMM dd, yyyy - hh:mm a");
+
+        // Sort list
+        Collections.sort(resultsMatches, new Comparator<MatchesObject>() {
+            @Override
+            public int compare(MatchesObject m1, MatchesObject m2) {
+                try {
+                    Date date1 = dateFormat.parse(m1.getDate());
+                    Date date2 = dateFormat.parse(m2.getDate());
+                    return date2.compareTo(date1); // Descending order
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                    return 0;
+                }
+            }
+        });
     }
 
     private ArrayList<MatchesObject> resultsMatches = new ArrayList<MatchesObject>();
