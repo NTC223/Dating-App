@@ -1,5 +1,6 @@
 package com.example.datingapp.Chat;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -15,6 +16,7 @@ import androidx.core.view.WindowInsetsCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.datingapp.MainActivity;
 import com.example.datingapp.Matches.MatchesActivity;
 import com.example.datingapp.Matches.MatchesAdapter;
 import com.example.datingapp.Matches.MatchesObject;
@@ -101,6 +103,8 @@ public class ChatActivity extends AppCompatActivity {
         mBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Intent intent = new Intent(ChatActivity.this, MatchesActivity.class);
+                startActivity(intent);
                 finish();
             }
         });
