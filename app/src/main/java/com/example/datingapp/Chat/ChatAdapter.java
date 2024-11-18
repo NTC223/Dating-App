@@ -69,7 +69,19 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatViewHolders> {
                 Glide.with(context).load(chat.getProfileImageUrl()).into(holder.mImageView);
                 break;
         }
+        holder.mMessage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (holder.mDateView.getVisibility() == View.GONE) {
+                    holder.mDateView.setVisibility(View.VISIBLE);
+                } else {
+                    holder.mDateView.setVisibility(View.GONE);
+                }
+            }
+        });
     }
+
+
 
     @Override
     public int getItemCount() {
