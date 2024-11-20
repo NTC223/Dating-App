@@ -12,7 +12,7 @@ import com.example.datingapp.Chat.ChatActivity;
 import com.example.datingapp.R;
 
 public class MatchesViewHolders extends RecyclerView.ViewHolder implements View.OnClickListener {
-    public TextView mMatchId, mMatchName;
+    public TextView mMatchId, mMatchName, mMatchDate, mMatchText;
     public ImageView mMatchImage;
     public MatchesViewHolders (View itemView){
         super(itemView);
@@ -20,9 +20,9 @@ public class MatchesViewHolders extends RecyclerView.ViewHolder implements View.
 
         mMatchId = (TextView) itemView.findViewById(R.id.MatchId);
         mMatchName = (TextView) itemView.findViewById(R.id.MatchName);
-
         mMatchImage = (ImageView) itemView.findViewById(R.id.MatchImage);
-
+        mMatchDate = (TextView) itemView.findViewById(R.id.date);
+        mMatchText = (TextView) itemView.findViewById(R.id.text);
     }
     @Override
     public void onClick(View view){

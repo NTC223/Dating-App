@@ -46,4 +46,27 @@
         app:layout_constraintTop_toBottomOf="@id/MatchName"
         android:visibility="gone"/>
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/text"
+        android:textColor="@color/white"
+        android:textStyle="bold"
+        app:layout_constraintLeft_toRightOf="@id/MatchImage"
+        app:layout_constraintTop_toBottomOf="@id/MatchName"
+        app:layout_constraintBottom_toBottomOf="@id/MatchImage"
+        android:paddingStart="16dp"
+        android:text="text"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="date"
+        android:id="@+id/date"
+        android:textColor="@color/secondary_text"
+        android:textStyle="bold"
+        app:layout_constraintStart_toEndOf="@id/text"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/MatchName"
+        app:layout_constraintBottom_toBottomOf="@id/MatchImage"/>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

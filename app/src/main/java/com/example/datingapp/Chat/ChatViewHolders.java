@@ -23,7 +23,9 @@ public class ChatViewHolders extends RecyclerView.ViewHolder implements View.OnC
         mMessage = itemView.findViewById(R.id.message);
         mImageView = itemView.findViewById(R.id.imageProfile);
         mDateView = itemView.findViewById(R.id.textDateTime);
+        mDateView.setVisibility(View.GONE);
     }
+
     @Override
     public void onClick(View view){
 
