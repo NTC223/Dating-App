@@ -28,24 +28,40 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:id="@+id/image"
-                android:scaleType="centerCrop"/>
+                android:scaleType="centerCrop" />
 
-            <TextView
-                android:id="@+id/info"
+            <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="bottom"
-                android:fontFamily="sans-serif"
-                android:paddingLeft="20sp"
-                android:paddingTop="20sp"
-                android:paddingBottom="20sp"
-                android:background="@drawable/gradient_background"
-                android:textColor="@android:color/white"
-                android:textSize="20sp"
-                android:gravity="center|left"
-                tools:text="hello" />
+                android:layout_gravity="bottom">
+
+                <TextView
+                    android:id="@+id/info"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="sans-serif"
+                    android:paddingLeft="20dp"
+                    android:paddingTop="20dp"
+                    android:paddingBottom="20dp"
+                    android:background="@drawable/gradient_background"
+                    android:textColor="@android:color/white"
+                    android:textSize="20sp"
+                    android:gravity="center|left"
+                    tools:text="hello" />
+
+                <Button
+                    android:id="@+id/stalk"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Stalk"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignTop="@id/info"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginTop="5dp" />
+            </RelativeLayout>
 
         </FrameLayout>
+
     </androidx.cardview.widget.CardView>
 
 </LinearLayout>

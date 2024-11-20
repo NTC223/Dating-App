@@ -1,5 +1,6 @@
 package com.example.datingapp.Chat;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -15,6 +16,7 @@ import androidx.core.view.WindowInsetsCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.datingapp.MainActivity;
 import com.example.datingapp.Matches.MatchesActivity;
 import com.example.datingapp.Matches.MatchesAdapter;
 import com.example.datingapp.Matches.MatchesObject;
@@ -27,9 +29,12 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 
 import android.widget.ImageView;
@@ -98,6 +103,8 @@ public class ChatActivity extends AppCompatActivity {
         mBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Intent intent = new Intent(ChatActivity.this, MatchesActivity.class);
+                startActivity(intent);
                 finish();
             }
         });
@@ -111,6 +118,7 @@ public class ChatActivity extends AppCompatActivity {
             Map newMessage = new HashMap();
             newMessage.put("createdByUser", currentUserId);
             newMessage.put("text", sendMessageText);
+            newMessage.put("date", getReadableDateTime(new Date()));
             newMessageDb.setValue(newMessage);
         }
         mSendEditText.setText(null);
@@ -133,6 +141,10 @@ public class ChatActivity extends AppCompatActivity {
         });
     }
 
+    private String getReadableDateTime(Date date){
+        return new SimpleDateFormat("MMMM dd, yyyy - hh:mm a", Locale.getDefault()).format(date);
+    }
+
     private void getChatMessage() {
         mDatabaseChat.addChildEventListener(new ChildEventListener() {
             @Override
@@ -140,48 +152,17 @@ public class ChatActivity extends AppCompatActivity {
                 if(snapshot.exists()){
                     String message = null;
                     String createdByUser = null;
-
+                    String date = null;
                     if(snapshot.child("text").getValue()!=null){
                         message = snapshot.child("text").getValue().toString();
                     }
                     if(snapshot.child("createdByUser").getValue()!=null){
                         createdByUser = snapshot.child("createdByUser").getValue().toString();
                     }
-                    final String messageFinal = message;
-                    final String createdByUserFinal = createdByUser;
-                    mDatabaseProfileImageUrl = FirebaseDatabase.getInstance().getReference().child("Users").child(createdByUser).child("profileImageUrl");
-                    mDatabaseProfileImageUrl.addListenerForSingleValueEvent(new ValueEventListener() {
-                        @Override
-                        public void onDataChange(@NonNull DataSnapshot snapshot) {
-                            if (snapshot.exists()){
-                                String profileImageUrl = snapshot.getValue().toString();
-                                if(messageFinal!=null && createdByUserFinal!=null && profileImageUrl!=null){
-                                    Boolean currentUserBoolean = false;
-                                    if(createdByUserFinal.equals(currentUserId)){
-                                        currentUserBoolean = true;
-                                    }
-
-                                    ChatObject newMessage =  new ChatObject(messageFinal, currentUserBoolean, profileImageUrl);
-                                    resultsChat.add(newMessage);
-
-                                    int count = resultsChat.size();
-                                    if(count == 0) mChatAdapter.notifyDataSetChanged();
-                                    else {
-                                        mChatAdapter.notifyItemRangeInserted(count - 1, 1);
-                                        mRecyclerView.post(() -> mRecyclerView.smoothScrollToPosition(count - 1));
-                                        System.out.println("Cuon xuong r");
-                                    }
-                                    mRecyclerView.setVisibility(View.VISIBLE);
-                                    progressBar.setVisibility(View.GONE);
-                                }
-                            }
-                        }
-                        @Override
-                        public void onCancelled(@NonNull DatabaseError error) {
-
-                        }
-                    });
-
+                    if(snapshot.child("date").getValue()!=null){
+                        date = snapshot.child("date").getValue().toString();
+                    }
+                    getProfileImage(message, createdByUser, date);
                 }
             }
 
@@ -206,6 +187,42 @@ public class ChatActivity extends AppCompatActivity {
             }
         });
     }
+
+    private void getProfileImage(String message, String createdByUser, String date) {
+        mDatabaseProfileImageUrl = FirebaseDatabase.getInstance().getReference().child("Users").child(createdByUser).child("profileImageUrl");
+        mDatabaseProfileImageUrl.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if (snapshot.exists()){
+                    String profileImageUrl = snapshot.getValue().toString();
+                    if(message!=null && createdByUser!=null && profileImageUrl!=null){
+                        Boolean currentUserBoolean = false;
+                        if(createdByUser.equals(currentUserId)){
+                            currentUserBoolean = true;
+                        }
+
+                        ChatObject newMessage =  new ChatObject(message, currentUserBoolean, profileImageUrl, date);
+                        resultsChat.add(newMessage);
+
+                        int count = resultsChat.size();
+                        if(count == 0) mChatAdapter.notifyDataSetChanged();
+                        else {
+                            mChatAdapter.notifyItemRangeInserted(count - 1, 1);
+                            mRecyclerView.post(() -> mRecyclerView.smoothScrollToPosition(count - 1));
+                            System.out.println("Cuon xuong r");
+                        }
+                        mRecyclerView.setVisibility(View.VISIBLE);
+                        progressBar.setVisibility(View.GONE);
+                    }
+                }
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+    }
+
 
     private ArrayList<ChatObject> resultsChat = new ArrayList<ChatObject>();
     private List<ChatObject> getDataSetMatches() {

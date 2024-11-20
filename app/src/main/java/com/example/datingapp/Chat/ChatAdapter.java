@@ -14,7 +14,10 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.example.datingapp.R;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 public class ChatAdapter extends RecyclerView.Adapter<ChatViewHolders> {
     private List<ChatObject> chatList;
@@ -51,9 +54,11 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatViewHolders> {
         }
     }
 
+
     @Override
     public void onBindViewHolder(@NonNull ChatViewHolders holder, int position) {
         holder.mMessage.setText(chatList.get(position).getMessage());
+        holder.mDateView.setText(chatList.get(position).getDateTime());
         ChatObject chat = chatList.get(position);
         switch (chat.getProfileImageUrl()){
             case "default":
@@ -64,7 +69,19 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatViewHolders> {
                 Glide.with(context).load(chat.getProfileImageUrl()).into(holder.mImageView);
                 break;
         }
+        holder.mMessage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (holder.mDateView.getVisibility() == View.GONE) {
+                    holder.mDateView.setVisibility(View.VISIBLE);
+                } else {
+                    holder.mDateView.setVisibility(View.GONE);
+                }
+            }
+        });
     }
+
+
 
     @Override
     public int getItemCount() {

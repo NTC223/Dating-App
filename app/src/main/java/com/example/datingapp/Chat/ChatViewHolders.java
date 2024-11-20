@@ -14,6 +14,7 @@ import com.example.datingapp.R;
 public class ChatViewHolders extends RecyclerView.ViewHolder implements View.OnClickListener {
     public TextView mMessage;
     public ImageView mImageView;
+    public TextView mDateView;
 
     public ChatViewHolders(View itemView){
         super(itemView);
@@ -21,7 +22,10 @@ public class ChatViewHolders extends RecyclerView.ViewHolder implements View.OnC
 
         mMessage = itemView.findViewById(R.id.message);
         mImageView = itemView.findViewById(R.id.imageProfile);
+        mDateView = itemView.findViewById(R.id.textDateTime);
+        mDateView.setVisibility(View.GONE);
     }
+
     @Override
     public void onClick(View view){
 
