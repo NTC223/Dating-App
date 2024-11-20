@@ -144,8 +144,8 @@ public class   MatchesActivity extends AppCompatActivity {
                     }
                     date = " . " + date;
                     text = lastMessageSnapShot.child("text").getValue().toString();
-                    createdByUser = lastMessageSnapShot.child("createdByUser").getKey().toString();
-                    if (!createdByUser.equals(currentUserId)){
+                    createdByUser = lastMessageSnapShot.child("createdByUser").getValue().toString();
+                    if (createdByUser.equals(currentUserId)){
                         System.out.println("1" + createdByUser);
                         System.out.println("2" + currentUserId);
                         text = "Bạn: " + text;
