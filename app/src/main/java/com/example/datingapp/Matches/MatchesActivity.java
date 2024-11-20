@@ -126,7 +126,7 @@ public class   MatchesActivity extends AppCompatActivity {
             }
         });
     }
-    private void FetchLastMessageAndDate(String userId, String name, String profileImageUrl, String chatId){
+    /*private void FetchLastMessageAndDate(String userId, String name, String profileImageUrl, String chatId){
         DatabaseReference chatDb = FirebaseDatabase.getInstance().getReference().child("Chat").child(chatId);
         chatDb.orderByKey().limitToLast(1).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -165,9 +165,89 @@ public class   MatchesActivity extends AppCompatActivity {
 
             }
         });
+    }*/
+    private void FetchLastMessageAndDate(String userId, String name, String profileImageUrl, String chatId){
+        DatabaseReference chatDb = FirebaseDatabase.getInstance().getReference().child("Chat").child(chatId);
+
+        chatDb.orderByKey().limitToLast(1).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                String date = "";
+                String text = "";
+                String displayDate = "";
+                String createdByUser = "";
+
+                if (snapshot.exists() && snapshot.getChildren().iterator().hasNext()) {
+                    DataSnapshot lastMessageSnapShot = snapshot.getChildren().iterator().next();
+                    Object dateValue = lastMessageSnapShot.child("date").getValue();
+                    if (dateValue != null && !dateValue.toString().isEmpty()) {
+                        date = dateValue.toString();
+                        try {
+                            displayDate = getDayOrDateString(date);
+                        } catch (ParseException e) {
+                            System.out.println(e);
+                            throw new RuntimeException(e);
+                        }
+                        displayDate = " . " + displayDate;
+                    } else {
+                        date = "";
+                        displayDate = date;
+                    }
+
+                    createdByUser = lastMessageSnapShot.child("createdByUser").getValue().toString();
+                    Object textValue = lastMessageSnapShot.child("text").getValue();
+                    if (textValue != null && !textValue.toString().isEmpty()) {
+                        text = textValue.toString();
+                        if (!createdByUser.equals(currentUserId)){
+                            text = "Bạn: " + text;
+                            int remainingDistance = 33 - displayDate.length();
+                            if(text.length() > remainingDistance)
+                                text = text.substring(0, remainingDistance - 3) + "... ";
+                        }
+                    } else {
+                        text = "";
+                    }
+                }
+
+                // Cập nhật MatchesObject
+                MatchesObject obj = new MatchesObject(userId, name, profileImageUrl, text, date, displayDate);
+
+                // Cập nhật danh sách
+                updateMatchList(obj);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
     }
+    private void updateMatchList(MatchesObject updatedMatch) {
+        boolean found = false;
+
+        // Tìm và cập nhật đối tượng trong danh sách
+        for (int i = 0; i < resultsMatches.size(); i++) {
+            if (resultsMatches.get(i).getUserId().equals(updatedMatch.getUserId())) {
+                resultsMatches.set(i, updatedMatch);
+                found = true;
+                break;
+            }
+        }
+
+        // Nếu không tìm thấy, thêm mới vào danh sách
+        if (!found) {
+            resultsMatches.add(updatedMatch);
+        }
+
+        // Sắp xếp danh sách theo ngày
+        sortMatchesByDate(resultsMatches);
+
+        // Cập nhật giao diện
+        mMatchesAdapter.notifyDataSetChanged();
+    }
+
     public static String getDayOrDateString(String dateString) throws ParseException {
-        SimpleDateFormat inputFormat = new SimpleDateFormat("MMMM dd, yyyy - hh:mm a", Locale.getDefault());
+        SimpleDateFormat inputFormat = new SimpleDateFormat("MMMM dd, yyyy - hh:mm:ss a", Locale.getDefault());
         Date date = inputFormat.parse(dateString);
 
         Date currentDate = new Date();
@@ -222,7 +302,7 @@ public class   MatchesActivity extends AppCompatActivity {
     }
 
     public static void sortMatchesByDate(List<MatchesObject> resultsMatches) {
-        SimpleDateFormat dateFormat = new SimpleDateFormat("MMMM dd, yyyy - hh:mm a");
+        SimpleDateFormat dateFormat = new SimpleDateFormat("MMMM dd, yyyy - hh:mm:ss a");
 
         // Sort list
         Collections.sort(resultsMatches, new Comparator<MatchesObject>() {
