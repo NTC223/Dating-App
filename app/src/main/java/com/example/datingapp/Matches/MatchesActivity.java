@@ -198,7 +198,7 @@ public class   MatchesActivity extends AppCompatActivity {
                     Object textValue = lastMessageSnapShot.child("text").getValue();
                     if (textValue != null && !textValue.toString().isEmpty()) {
                         text = textValue.toString();
-                        if (!createdByUser.equals(currentUserId)){
+                        if (createdByUser.equals(currentUserId)){
                             text = "Bạn: " + text;
                             int remainingDistance = 33 - displayDate.length();
                             if(text.length() > remainingDistance)
