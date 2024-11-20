@@ -144,9 +144,9 @@ public class ChatActivity extends AppCompatActivity {
     private String getReadableDateTime(Date date){
         return new SimpleDateFormat("MMMM dd, yyyy - hh:mm a", Locale.getDefault()).format(date);
     }
-
+    private static final int MESSAGE_LIMIT = 20;
     private void getChatMessage() {
-        mDatabaseChat.addChildEventListener(new ChildEventListener() {
+        mDatabaseChat.orderByKey().limitToLast(MESSAGE_LIMIT).addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
                 if(snapshot.exists()){
