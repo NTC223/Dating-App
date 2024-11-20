@@ -198,12 +198,14 @@ public class   MatchesActivity extends AppCompatActivity {
                     Object textValue = lastMessageSnapShot.child("text").getValue();
                     if (textValue != null && !textValue.toString().isEmpty()) {
                         text = textValue.toString();
+                        System.out.println(createdByUser);
+                        System.out.println(currentUserId);
                         if (createdByUser.equals(currentUserId)){
                             text = "Bạn: " + text;
-                            int remainingDistance = 33 - displayDate.length();
-                            if(text.length() > remainingDistance)
-                                text = text.substring(0, remainingDistance - 3) + "... ";
                         }
+                        int remainingDistance = 33 - displayDate.length();
+                        if(text.length() > remainingDistance)
+                            text = text.substring(0, remainingDistance - 3) + "... ";
                     } else {
                         text = "";
                     }
