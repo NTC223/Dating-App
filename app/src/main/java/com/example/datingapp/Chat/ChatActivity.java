@@ -192,7 +192,7 @@ public class ChatActivity extends AppCompatActivity {
     }
 
     private String getReadableDateTime(Date date){
-        return new SimpleDateFormat("MMMM dd, yyyy - hh:mm a", Locale.getDefault()).format(date);
+        return new SimpleDateFormat("MMMM dd, yyyy - hh:mm:ss a", Locale.getDefault()).format(date);
     }
 
     private static final int MESSAGE_LIMIT = 20;

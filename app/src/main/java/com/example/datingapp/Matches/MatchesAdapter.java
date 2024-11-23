@@ -38,7 +38,7 @@ public class MatchesAdapter extends RecyclerView.Adapter<MatchesViewHolders> {
     public void onBindViewHolder(@NonNull MatchesViewHolders holder, int position) {
         holder.mMatchId.setText(matchesList.get(position).getUserId());
         holder.mMatchName.setText(matchesList.get(position).getName());
-        holder.mMatchDate.setText(matchesList.get(position).getDate());
+        holder.mMatchDate.setText(matchesList.get(position).getDisplayDate());
         holder.mMatchText.setText(matchesList.get(position).getText());
         switch (matchesList.get(position).getProfileImageUrl()){
             case "default":
