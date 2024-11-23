@@ -3,24 +3,17 @@ package com.example.datingapp.Chat;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
 
-import androidx.activity.EdgeToEdge;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.datingapp.MainActivity;
 import com.example.datingapp.Matches.MatchesActivity;
-import com.example.datingapp.Matches.MatchesAdapter;
-import com.example.datingapp.Matches.MatchesObject;
 import com.example.datingapp.R;
+import com.example.datingapp.stalkActivity;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
@@ -50,7 +43,7 @@ public class ChatActivity extends AppCompatActivity {
 
     private EditText mSendEditText;
 
-    private ImageView mBack, mSendButton;
+    private ImageView mBack, mSendButton, mInfoButton;
     private ProgressBar progressBar;
 
     private String currentUserId, matchId, chatId, matchName;
@@ -86,6 +79,7 @@ public class ChatActivity extends AppCompatActivity {
 
         mSendEditText = findViewById(R.id.message);
         mSendButton = findViewById(R.id.send);
+        mInfoButton = findViewById(R.id.imageInfo);
 
         mBack = findViewById(R.id.imageBack);
         mMatchName = findViewById(R.id.textName);
@@ -110,6 +104,14 @@ public class ChatActivity extends AppCompatActivity {
             }
         });
 
+        mInfoButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(view.getContext(), stalkActivity.class);
+                Bundle b = new Bundle();
+                b.putString("userId", matchId);
+                intent.putExtras(b);
+                view.getContext().startActivity(intent);
         mRecyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
             public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
@@ -255,6 +257,13 @@ public class ChatActivity extends AppCompatActivity {
                         }
 
                         ChatObject newMessage =  new ChatObject(message, currentUserBoolean, profileImageUrl, date);
+                        resultsChat.add(newMessage);
+
+                        int count = resultsChat.size();
+                        if(count == 0) mChatAdapter.notifyDataSetChanged();
+                        else {
+                            mChatAdapter.notifyItemRangeInserted(count - 1, 1);
+                            mRecyclerView.post(() -> mRecyclerView.smoothScrollToPosition(count - 1));
                         if (type == -1){
                             resultsChat.add(newMessage);
                             int count = resultsChat.size();
@@ -277,7 +286,6 @@ public class ChatActivity extends AppCompatActivity {
             }
         });
     }
-
 
     private ArrayList<ChatObject> resultsChat = new ArrayList<ChatObject>();
     private List<ChatObject> getDataSetMatches() {
