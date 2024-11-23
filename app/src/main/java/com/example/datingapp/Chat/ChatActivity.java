@@ -112,6 +112,8 @@ public class ChatActivity extends AppCompatActivity {
                 b.putString("userId", matchId);
                 intent.putExtras(b);
                 view.getContext().startActivity(intent);
+            }
+        });
         mRecyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
             public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
@@ -257,13 +259,7 @@ public class ChatActivity extends AppCompatActivity {
                         }
 
                         ChatObject newMessage =  new ChatObject(message, currentUserBoolean, profileImageUrl, date);
-                        resultsChat.add(newMessage);
 
-                        int count = resultsChat.size();
-                        if(count == 0) mChatAdapter.notifyDataSetChanged();
-                        else {
-                            mChatAdapter.notifyItemRangeInserted(count - 1, 1);
-                            mRecyclerView.post(() -> mRecyclerView.smoothScrollToPosition(count - 1));
                         if (type == -1){
                             resultsChat.add(newMessage);
                             int count = resultsChat.size();
