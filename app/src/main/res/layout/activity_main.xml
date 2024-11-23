@@ -6,8 +6,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/black"
+    android:paddingBottom="16dp"
     tools:context=".MainActivity"
-
     android:orientation="vertical">
 
 <!--  Header  -->
@@ -43,6 +43,7 @@
         tools:context=".MyActivity"
         app:layout_constraintTop_toBottomOf="@id/logo"
         app:layout_constraintBottom_toTopOf="@id/like"/>
+
     <View
         android:id="@+id/line"
         android:layout_width="0dp"
@@ -58,7 +59,7 @@
         android:id="@+id/dislike"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        app:layout_constraintHeight_percent="0.1"
+        app:layout_constraintHeight_percent="0.09"
         app:layout_constraintWidth_percent="0.1"
         android:src="@drawable/close_dislike_button"
         android:background="@null"
@@ -71,7 +72,7 @@
         android:layout_width="0dp"
         android:layout_height="0dp"
         app:layout_constraintWidth_percent="0.1"
-        app:layout_constraintHeight_percent="0.1"
+        app:layout_constraintHeight_percent="0.09"
         android:src="@drawable/heart_like_button"
         android:background="@null"
         android:scaleType="fitCenter"
@@ -82,42 +83,42 @@
 <!--  bottom  -->
     <ImageButton
         android:id="@+id/home"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
+        android:layout_width="56dp"
+        android:layout_height="37dp"
         android:background="@null"
         android:scaleType="fitCenter"
         android:src="@drawable/heart_beat"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintHeight_percent="0.09"
-        app:layout_constraintWidth_percent="0.1"
+        app:layout_constraintHeight_percent="0.12"
+        app:layout_constraintWidth_percent="0.12"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toLeftOf="@id/matches" />
 
     <ImageButton
         android:id="@+id/matches"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
+        android:layout_width="56dp"
+        android:layout_height="37dp"
         android:background="@null"
         android:onClick="goToMatches"
         android:scaleType="fitCenter"
         android:src="@drawable/chat_button_inactive"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintHeight_percent="0.09"
-        app:layout_constraintWidth_percent="0.1"
+        app:layout_constraintHeight_percent="0.12"
+        app:layout_constraintWidth_percent="0.12"
         app:layout_constraintLeft_toRightOf="@id/home"
         app:layout_constraintRight_toLeftOf="@id/setting" />
 
     <ImageButton
         android:id="@+id/setting"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
+        android:layout_width="56dp"
+        android:layout_height="37dp"
         android:scaleType="fitCenter"
         android:src="@drawable/user_inactive_button"
         android:background="@null"
         android:onClick="goToSettings"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintHeight_percent="0.09"
-        app:layout_constraintWidth_percent="0.1"
+        app:layout_constraintHeight_percent="0.12"
+        app:layout_constraintWidth_percent="0.12"
         app:layout_constraintLeft_toRightOf="@id/matches"
         app:layout_constraintRight_toRightOf="parent" />
 
