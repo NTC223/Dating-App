@@ -91,6 +91,9 @@ public class stalkActivity extends AppCompatActivity {
     }
 
     private void showFullScreenImage(int index) {
+        if (imageurls.get(index).equals("default")){
+            return;
+        }
         Intent intent = new Intent(stalkActivity.this, FullScreenImageActivity.class);
         intent.putExtra("imageUrl", imageurls.get(index));
         startActivity(intent);

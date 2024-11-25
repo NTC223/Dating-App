@@ -9,6 +9,7 @@ import android.provider.MediaStore;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
@@ -146,8 +147,13 @@ public class SettingsActivity extends AppCompatActivity {
     }
 
     private void showFullScreenImage(int index) {
+        if (imageurls.get(index).equals("default")){
+            return;
+        }
         Intent intent = new Intent(SettingsActivity.this, FullScreenImageActivity.class);
         intent.putExtra("imageUrl", imageurls.get(index));
+        intent.putExtra("Uid", userId);
+        intent.putExtra("imageName", mapKeys[index]);
         startActivity(intent);
     }
 
