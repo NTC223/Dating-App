@@ -3,30 +3,24 @@ package com.example.datingapp.Chat;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
 
-import androidx.activity.EdgeToEdge;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.datingapp.MainActivity;
 import com.example.datingapp.Matches.MatchesActivity;
-import com.example.datingapp.Matches.MatchesAdapter;
-import com.example.datingapp.Matches.MatchesObject;
 import com.example.datingapp.R;
+import com.example.datingapp.stalkActivity;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 import java.text.SimpleDateFormat;
@@ -49,7 +43,7 @@ public class ChatActivity extends AppCompatActivity {
 
     private EditText mSendEditText;
 
-    private ImageView mBack, mSendButton;
+    private ImageView mBack, mSendButton, mInfoButton;
     private ProgressBar progressBar;
 
     private String currentUserId, matchId, chatId, matchName;
@@ -85,6 +79,7 @@ public class ChatActivity extends AppCompatActivity {
 
         mSendEditText = findViewById(R.id.message);
         mSendButton = findViewById(R.id.send);
+        mInfoButton = findViewById(R.id.imageInfo);
 
         mBack = findViewById(R.id.imageBack);
         mMatchName = findViewById(R.id.textName);
@@ -108,6 +103,25 @@ public class ChatActivity extends AppCompatActivity {
                 finish();
             }
         });
+
+        mInfoButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(view.getContext(), stalkActivity.class);
+                Bundle b = new Bundle();
+                b.putString("userId", matchId);
+                intent.putExtras(b);
+                view.getContext().startActivity(intent);
+            }
+        });
+        mRecyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
+                if (dy < 0 && !recyclerView.canScrollVertically(-1)) { // Kiểm tra cuộn lên đầu
+                    loadMoreMessages();
+                }
+            }
+        });
     }
 
     private void sendMessage() {
@@ -122,6 +136,46 @@ public class ChatActivity extends AppCompatActivity {
             newMessageDb.setValue(newMessage);
         }
         mSendEditText.setText(null);
+    }
+    private String lastKey = null;
+
+    private void loadMoreMessages(){
+        progressBar.setVisibility(View.VISIBLE);
+        Query pagination = mDatabaseChat.orderByKey().endBefore(lastKey).limitToLast(MESSAGE_LIMIT);
+        pagination.addListenerForSingleValueEvent(new ValueEventListener() {
+            boolean checkLastKey = true;
+            int position = 0;
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for (DataSnapshot sanpshotMessage : snapshot.getChildren()){
+                    if (checkLastKey){
+                        lastKey = sanpshotMessage.getKey();
+                        checkLastKey = false;
+                    }
+
+                    String message = null;
+                    String createdByUser = null;
+                    String date = null;
+                    if(sanpshotMessage.child("text").getValue()!=null){
+                        message = sanpshotMessage.child("text").getValue().toString();
+                    }
+                    if(sanpshotMessage.child("createdByUser").getValue()!=null){
+                        createdByUser = sanpshotMessage.child("createdByUser").getValue().toString();
+                    }
+                    if(sanpshotMessage.child("date").getValue()!=null){
+                        date = sanpshotMessage.child("date").getValue().toString();
+                    }
+                    getProfileImage(message, createdByUser, date, position);
+                    position += 1;
+                }
+                progressBar.setVisibility(View.GONE);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                progressBar.setVisibility(View.GONE);
+            }
+        });
     }
 
     private void getChatId(){
@@ -142,14 +196,18 @@ public class ChatActivity extends AppCompatActivity {
     }
 
     private String getReadableDateTime(Date date){
-        return new SimpleDateFormat("MMMM dd, yyyy - hh:mm a", Locale.getDefault()).format(date);
+        return new SimpleDateFormat("MMMM dd, yyyy - hh:mm:ss a", Locale.getDefault()).format(date);
     }
 
+    private static final int MESSAGE_LIMIT = 20;
     private void getChatMessage() {
-        mDatabaseChat.addChildEventListener(new ChildEventListener() {
+        mDatabaseChat.orderByKey().limitToLast(MESSAGE_LIMIT).addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
                 if(snapshot.exists()){
+                    if (lastKey == null){
+                        lastKey = snapshot.getKey();
+                    }
                     String message = null;
                     String createdByUser = null;
                     String date = null;
@@ -162,7 +220,7 @@ public class ChatActivity extends AppCompatActivity {
                     if(snapshot.child("date").getValue()!=null){
                         date = snapshot.child("date").getValue().toString();
                     }
-                    getProfileImage(message, createdByUser, date);
+                    getProfileImage(message, createdByUser, date, -1);
                 }
             }
 
@@ -183,12 +241,11 @@ public class ChatActivity extends AppCompatActivity {
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-
             }
         });
     }
 
-    private void getProfileImage(String message, String createdByUser, String date) {
+    private void getProfileImage(String message, String createdByUser, String date, int type) {
         mDatabaseProfileImageUrl = FirebaseDatabase.getInstance().getReference().child("Users").child(createdByUser).child("profileImageUrl");
         mDatabaseProfileImageUrl.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -202,27 +259,29 @@ public class ChatActivity extends AppCompatActivity {
                         }
 
                         ChatObject newMessage =  new ChatObject(message, currentUserBoolean, profileImageUrl, date);
-                        resultsChat.add(newMessage);
 
-                        int count = resultsChat.size();
-                        if(count == 0) mChatAdapter.notifyDataSetChanged();
-                        else {
-                            mChatAdapter.notifyItemRangeInserted(count - 1, 1);
-                            mRecyclerView.post(() -> mRecyclerView.smoothScrollToPosition(count - 1));
-                            System.out.println("Cuon xuong r");
+                        if (type == -1){
+                            resultsChat.add(newMessage);
+                            int count = resultsChat.size();
+                            if(count == 0) mChatAdapter.notifyDataSetChanged();
+                            else {
+                                mChatAdapter.notifyItemRangeInserted(count - 1, 1);
+                                mRecyclerView.post(() -> mRecyclerView.smoothScrollToPosition(count - 1));
+                            }
+                            mRecyclerView.setVisibility(View.VISIBLE);
+                            progressBar.setVisibility(View.GONE);
+                        }else {
+                            resultsChat.add(type,newMessage);
+                            mChatAdapter.notifyDataSetChanged();
                         }
-                        mRecyclerView.setVisibility(View.VISIBLE);
-                        progressBar.setVisibility(View.GONE);
                     }
                 }
             }
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-
             }
         });
     }
-
 
     private ArrayList<ChatObject> resultsChat = new ArrayList<ChatObject>();
     private List<ChatObject> getDataSetMatches() {
