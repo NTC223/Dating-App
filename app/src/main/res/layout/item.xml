@@ -54,13 +54,18 @@
                     android:gravity="center|left"
                     android:layout_below="@id/name"
                     tools:text="hellosfse" />
-                <Button
+                <ImageButton
                     android:id="@+id/stalk"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Stalk"
+                    android:layout_width="35dp"
+                    android:layout_height="35dp"
+                    android:src="@drawable/arrow"
+                    android:scaleType="centerInside"
+                    android:background="@null"
                     android:layout_alignParentRight="true"
-                    android:layout_alignTop="@id/name"/>
+                    android:layout_alignTop="@id/name"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginTop="5dp"
+                 android:contentDescription="@string/view_profile"/>
             </RelativeLayout>
 
         </FrameLayout>
