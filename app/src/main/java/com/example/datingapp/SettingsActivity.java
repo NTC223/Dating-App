@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -38,8 +39,8 @@ import java.util.Map;
 public class SettingsActivity extends AppCompatActivity {
 
     private EditText mNameField, mPhoneField, mAgeField, mEducationField, mPetField, mBioField, mLookingforField, mDrinkingSmokingField, mPersonalTypeField, mZodiacField;
-
-    private Button mConfirm, mBack;
+    private LinearLayout imageContainer;
+    private Button mConfirm, mBack, mExpandButton;
 
     private ImageView[] imageViews;
     private ImageView mProfileImage, mImage1, mImage2, mImage3, mImage4, mImage5, mImage6;
@@ -85,6 +86,8 @@ public class SettingsActivity extends AppCompatActivity {
 
         mBack = (Button) findViewById(R.id.back);
         mConfirm = (Button) findViewById(R.id.confirm);
+        mExpandButton = (Button) findViewById(R.id.expand_button);
+        imageContainer = (LinearLayout) findViewById(R.id.image_container);
 
         mAuth = FirebaseAuth.getInstance();
         userId = mAuth.getCurrentUser().getUid();
@@ -115,7 +118,18 @@ public class SettingsActivity extends AppCompatActivity {
                 }
             });
         }
-
+        mExpandButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (imageContainer.getVisibility() == View.GONE) {
+                    imageContainer.setVisibility(View.VISIBLE);
+                    mExpandButton.setText("Hide Images");
+                } else {
+                    imageContainer.setVisibility(View.GONE);
+                    mExpandButton.setText("Add Images");
+                }
+            }
+        });
         mConfirm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
