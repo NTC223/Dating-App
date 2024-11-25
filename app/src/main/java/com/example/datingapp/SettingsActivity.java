@@ -323,6 +323,12 @@ public class SettingsActivity extends AppCompatActivity {
         imageUris.set(imageIndex, imageUri);
     }
 
+    public void changePassword(View view){
+        Intent intent = new Intent(SettingsActivity.this, ChangePasswordActivity.class);
+        startActivity(intent);
+        return;
+    }
+
     public void logoutUser(View view){
         mAuth.signOut();
         Intent intent = new Intent(SettingsActivity.this, ChooseLoginOrRegistationActivity.class);

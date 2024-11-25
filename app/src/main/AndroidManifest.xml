@@ -9,11 +9,14 @@
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
         android:icon="@mipmap/icon"
-        android:roundIcon="@mipmap/icon_round"
         android:label="Tym"
+        android:roundIcon="@mipmap/icon_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.DatingApp"
         tools:targetApi="31">
+        <activity
+            android:name=".ChangePasswordActivity"
+            android:exported="false" />
         <activity
             android:name=".stalkActivity"
             android:exported="false" />
@@ -32,7 +35,7 @@
         <activity
             android:name=".RegistationActivity"
             android:exported="false" />
-        <activity android:name=".FullScreenImageActivity"/>
+        <activity android:name=".FullScreenImageActivity" />
         <activity
             android:name=".ChooseLoginOrRegistationActivity"
             android:exported="true">
