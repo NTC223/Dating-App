@@ -215,13 +215,8 @@ public class SettingsActivity extends AppCompatActivity {
                         Glide.with(getApplication()).clear(imageView);
                         if(map.get(key) != null){
                             String imageUrl = map.get(key).toString();
-                            switch (imageUrl){
-                                case "default":
-                                    Glide.with(getApplication()).load(defaultImage).into(imageView);
-                                    break;
-                                default:
-                                    Glide.with(getApplication()).load(imageUrl).into(imageView);
-                                    break;
+                            if(!imageUrl.equals("default")){
+                                Glide.with(getApplication()).load(imageUrl).into(imageView);
                             }
                             imageurls.add(imageUrl);
                         }
