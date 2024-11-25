@@ -30,7 +30,7 @@ public class arrayAdapter extends ArrayAdapter<cards> {
         if (convertView == null){
             convertView = LayoutInflater.from(getContext()).inflate(R.layout.item, parent, false);
         }
-
+        TextView name = (TextView) convertView.findViewById(R.id.name);
         TextView info = (TextView) convertView.findViewById(R.id.info);
         ImageView image = (ImageView) convertView.findViewById(R.id.image);
         Button stalkButton = (Button) convertView.findViewById(R.id.stalk);
@@ -45,8 +45,8 @@ public class arrayAdapter extends ArrayAdapter<cards> {
                 view.getContext().startActivity(intent);
             }
         });
-
-        info.setText(card_item.getName() + " " + card_item.getAge() + "\n" + card_item.getBio() + "\n" + card_item.getLookingfor());
+        name.setText(card_item.getName()+ " " + card_item.getAge());
+        info.setText(card_item.getBio() + "\n" + card_item.getLookingfor());
         switch (card_item.getProfileImageUrl()){
             case "default":
                 Glide.with(convertView.getContext()).load(R.mipmap.ic_launcher).into(image);
