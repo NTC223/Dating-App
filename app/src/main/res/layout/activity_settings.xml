@@ -113,7 +113,7 @@
                 android:id="@+id/expand_button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Add Images"
+                android:text="Show Images"
                 android:textColor="@color/logo"
                 android:background="@android:color/transparent"
                 android:layout_gravity="center"
