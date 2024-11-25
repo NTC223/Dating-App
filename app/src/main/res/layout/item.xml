@@ -33,8 +33,35 @@
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="bottom">
-
+                android:layout_gravity="bottom"
+                android:background="@drawable/gradient_background">
+                <TextView
+                    android:id="@+id/name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    tools:text="name"
+                    android:textColor="@android:color/white"
+                    android:textSize="25sp"
+                    android:textStyle="bold"
+                    android:gravity="center|left"
+                    android:paddingLeft="20dp"
+                    android:paddingTop="20dp"
+                    android:paddingBottom="20dp"/>
+                <TextView
+                    android:id="@+id/age"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    tools:text="age"
+                    android:textColor="@android:color/white"
+                    android:textSize="25sp"
+                    android:textStyle="bold"
+                    android:gravity="center|left"
+                    android:paddingLeft="7dp"
+                    android:layout_toEndOf="@id/name"
+                    android:layout_alignTop="@id/name"
+                    android:layout_marginStart="10dp"
+                    android:paddingTop="20dp"
+                    android:paddingBottom="20dp"/>
                 <TextView
                     android:id="@+id/info"
                     android:layout_width="match_parent"
@@ -43,21 +70,24 @@
                     android:paddingLeft="20dp"
                     android:paddingTop="20dp"
                     android:paddingBottom="20dp"
-                    android:background="@drawable/gradient_background"
                     android:textColor="@android:color/white"
                     android:textSize="20sp"
                     android:gravity="center|left"
-                    tools:text="hello" />
+                    tools:text="hello"
+                    android:layout_marginTop="30dp"/>
 
-                <Button
+                <ImageButton
                     android:id="@+id/stalk"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Stalk"
+                    android:layout_width="35dp"
+                    android:layout_height="35dp"
+                    android:src="@drawable/arrow"
+                    android:scaleType="centerInside"
+                    android:background="@null"
                     android:layout_alignParentRight="true"
-                    android:layout_alignTop="@id/info"
+                    android:layout_alignTop="@id/age"
                     android:layout_marginRight="10dp"
-                    android:layout_marginTop="5dp" />
+                    android:layout_marginTop="5dp"
+                    android:contentDescription="@string/view_profile"/>
             </RelativeLayout>
 
         </FrameLayout>
