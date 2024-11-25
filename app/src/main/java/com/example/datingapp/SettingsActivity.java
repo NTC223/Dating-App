@@ -9,7 +9,9 @@ import android.provider.MediaStore;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -38,8 +40,8 @@ import java.util.Map;
 public class SettingsActivity extends AppCompatActivity {
 
     private EditText mNameField, mPhoneField, mAgeField, mEducationField, mPetField, mBioField, mLookingforField, mDrinkingSmokingField, mPersonalTypeField, mZodiacField;
-
-    private Button mConfirm, mBack;
+    private LinearLayout imageContainer;
+    private Button mConfirm, mBack, mExpandButton;
 
     private ImageView[] imageViews;
     private ImageView mProfileImage, mImage1, mImage2, mImage3, mImage4, mImage5, mImage6;
@@ -85,6 +87,8 @@ public class SettingsActivity extends AppCompatActivity {
 
         mBack = (Button) findViewById(R.id.back);
         mConfirm = (Button) findViewById(R.id.confirm);
+        mExpandButton = (Button) findViewById(R.id.expand_button);
+        imageContainer = (LinearLayout) findViewById(R.id.image_container);
 
         mAuth = FirebaseAuth.getInstance();
         userId = mAuth.getCurrentUser().getUid();
@@ -115,7 +119,18 @@ public class SettingsActivity extends AppCompatActivity {
                 }
             });
         }
-
+        mExpandButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (imageContainer.getVisibility() == View.GONE) {
+                    imageContainer.setVisibility(View.VISIBLE);
+                    mExpandButton.setText("Hide Images");
+                } else {
+                    imageContainer.setVisibility(View.GONE);
+                    mExpandButton.setText("Add Images");
+                }
+            }
+        });
         mConfirm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -132,9 +147,15 @@ public class SettingsActivity extends AppCompatActivity {
     }
 
     private void showFullScreenImage(int index) {
+        if (imageurls.get(index).equals("default")){
+            return;
+        }
         Intent intent = new Intent(SettingsActivity.this, FullScreenImageActivity.class);
         intent.putExtra("imageUrl", imageurls.get(index));
+        intent.putExtra("Uid", userId);
+        intent.putExtra("imageName", mapKeys[index]);
         startActivity(intent);
+        finish();
     }
 
     private void getUserInfo(){
@@ -253,14 +274,6 @@ public class SettingsActivity extends AppCompatActivity {
         }
     }
 
-    private void saveImageUrlsToDatabase() {
-        Map<String, Object> userInfo = new HashMap<>();
-        for (Map.Entry<String, String> entry : uploadedImageUrls.entrySet()) {
-            userInfo.put(entry.getKey(), entry.getValue());
-        }
-        mUserDatabase.updateChildren(userInfo);
-    }
-
     private void uploadImage(Uri imageUri, int index) {
         String imageName = mapKeys[index];
 
@@ -295,12 +308,6 @@ public class SettingsActivity extends AppCompatActivity {
                 });
             }
         });
-    }
-
-    private void checkUploadCompletion() {
-        if (uploadedImageUrls.size() == imageUris.size()) {
-            saveImageUrlsToDatabase();
-        }
     }
 
     @Override
