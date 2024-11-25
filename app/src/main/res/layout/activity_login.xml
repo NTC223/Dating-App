@@ -90,4 +90,17 @@
         app:layout_constraintTop_toTopOf="parent"
         android:layout_marginTop="0dp" />
 
+    <Button
+        android:id="@+id/forgotPassword"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Forgot password ?"
+        android:onClick="forgotPassword"
+        android:textSize="17sp"
+        android:fontFamily="sans-serif"
+        android:textColor="@color/blue"
+        android:background="@android:color/transparent"
+        app:layout_constraintEnd_toEndOf="@id/login"
+        app:layout_constraintTop_toBottomOf="@id/login" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
