@@ -57,7 +57,7 @@
                     android:textColorHint="#C0C0C0"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="20sp"
+                    android:textSize="25sp"
                     android:textStyle="bold"
                     android:textColor="@color/white"
                     android:fontFamily="sans-serif"
@@ -71,7 +71,7 @@
                     android:inputType="numberDecimal"
                     android:textColor="@color/white"
                     android:textColorHint="#C0C0C0"
-                    android:textSize="20sp" />
+                    android:textSize="25sp" />
             </LinearLayout>
         </androidx.constraintlayout.widget.ConstraintLayout>
 

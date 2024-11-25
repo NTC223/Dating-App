@@ -41,9 +41,19 @@
                     android:layout_height="wrap_content"
                     android:fontFamily="sans-serif"
                     android:textColor="@android:color/white"
-                    android:textSize="20sp"
+                    android:textSize="30sp"
+                    android:textStyle="bold"
                     android:gravity="center|left"
-                    tools:text="hello" />
+                    tools:text="Minh Anh 20" />
+                <ImageView
+                    android:id="@+id/quotes"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:src="@drawable/quotes"
+                    android:layout_alignParentStart="true"
+                    android:layout_below="@id/name"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginStart="8dp" />
                 <TextView
                     android:id="@+id/info"
                     android:layout_width="match_parent"
@@ -51,9 +61,10 @@
                     android:fontFamily="sans-serif"
                     android:textColor="@android:color/white"
                     android:textSize="20sp"
-                    android:gravity="center|left"
+                    android:layout_marginStart="36dp"
                     android:layout_below="@id/name"
-                    tools:text="hellosfse" />
+                    tools:text="hellosfsehfjhslkdasjfkjnslkjdfnslkjanljkgnkljdfnjkgnkalsnlkjanskjgnljkdnfgnakljnklngkjndlkjglkjfbgljkgbajierngsng;kjasn;kgnsn;kn;fnankljfn" />
+
                 <ImageButton
                     android:id="@+id/stalk"
                     android:layout_width="35dp"
@@ -65,7 +76,7 @@
                     android:layout_alignTop="@id/name"
                     android:layout_marginRight="10dp"
                     android:layout_marginTop="5dp"
-                 android:contentDescription="@string/view_profile"/>
+                    android:contentDescription="@string/view_profile"/>
             </RelativeLayout>
 
         </FrameLayout>

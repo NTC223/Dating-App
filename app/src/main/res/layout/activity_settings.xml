@@ -453,6 +453,7 @@
         </androidx.cardview.widget.CardView>
 
         <Button
+            android:id="@+id/changepass"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Change password"
@@ -466,6 +467,7 @@
 
         <!-- Sign Out Button -->
         <Button
+            android:id="@+id/signout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Sign Out"
@@ -475,6 +477,7 @@
             app:backgroundTint="@null"
             android:textColor="@color/white"
             android:textStyle="bold"
-            android:padding="12dp" />
+            android:padding="12dp"
+            android:layout_marginTop="16dp"/>
     </LinearLayout>
 </ScrollView>
