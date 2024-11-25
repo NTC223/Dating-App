@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -33,7 +34,7 @@ public class arrayAdapter extends ArrayAdapter<cards> {
         TextView name = (TextView) convertView.findViewById(R.id.name);
         TextView info = (TextView) convertView.findViewById(R.id.info);
         ImageView image = (ImageView) convertView.findViewById(R.id.image);
-        Button stalkButton = (Button) convertView.findViewById(R.id.stalk);
+        ImageButton stalkButton = (ImageButton) convertView.findViewById(R.id.stalk);
 
         stalkButton.setOnClickListener(new View.OnClickListener() {
             @Override
