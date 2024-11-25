@@ -155,6 +155,7 @@ public class SettingsActivity extends AppCompatActivity {
         intent.putExtra("Uid", userId);
         intent.putExtra("imageName", mapKeys[index]);
         startActivity(intent);
+        finish();
     }
 
     private void getUserInfo(){
@@ -273,14 +274,6 @@ public class SettingsActivity extends AppCompatActivity {
         }
     }
 
-    private void saveImageUrlsToDatabase() {
-        Map<String, Object> userInfo = new HashMap<>();
-        for (Map.Entry<String, String> entry : uploadedImageUrls.entrySet()) {
-            userInfo.put(entry.getKey(), entry.getValue());
-        }
-        mUserDatabase.updateChildren(userInfo);
-    }
-
     private void uploadImage(Uri imageUri, int index) {
         String imageName = mapKeys[index];
 
@@ -315,12 +308,6 @@ public class SettingsActivity extends AppCompatActivity {
                 });
             }
         });
-    }
-
-    private void checkUploadCompletion() {
-        if (uploadedImageUrls.size() == imageUris.size()) {
-            saveImageUrlsToDatabase();
-        }
     }
 
     @Override
