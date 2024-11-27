@@ -197,6 +197,16 @@
 
         </LinearLayout>
 
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="INFORMATION SETTINGS"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:textColor="@color/bright_white"
+            android:fontFamily="sans-serif"
+            android:layout_marginBottom="8dp"/>
+
     <!-- Phone Field -->
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
@@ -467,6 +477,136 @@
             </LinearLayout>
         </androidx.cardview.widget.CardView>
 
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="DISCOVERY SETTINGS"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:textColor="@color/bright_white"
+            android:fontFamily="sans-serif"
+            android:layout_marginBottom="8dp"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="Your preferences help you discover people who align with your interests, but don't limit the possibilities of who you can meet."
+            android:textColor="@color/bright_white"
+            android:fontFamily="sans-serif"
+            android:layout_marginBottom="8dp"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Show me"
+            android:textColor="@color/bright_white"
+            android:textSize="18sp"
+            android:layout_marginBottom="8dp"/>
+        <RadioGroup
+            android:id="@+id/radioGroup"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <RadioButton
+                android:id="@+id/male"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Male"
+                android:textSize="17sp"
+                android:textColor="@color/bright_white"
+                android:layout_marginEnd="25dp"/>
+            <RadioButton
+                android:id="@+id/female"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Female"
+                android:textSize="17sp"
+                android:textColor="@color/bright_white"
+                android:layout_marginEnd="25dp"/>
+            <RadioButton
+                android:id="@+id/everyone"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Everyone"
+                android:textSize="17sp"
+                android:layout_weight="1"
+                android:textColor="@color/bright_white"
+                android:layout_marginEnd="25dp"/>
+        </RadioGroup>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Age Range"
+            android:textColor="@color/bright_white"
+            android:textSize="18sp"
+            android:paddingBottom="8dp"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Max"
+            android:textColor="@color/bright_white"/>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <!-- Bubble hiển thị giá trị -->
+            <TextView
+                android:id="@+id/bubbleMax"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:background="@drawable/button_background"
+                android:padding="7dp"
+                android:visibility="gone"
+                android:text="0"
+                android:textColor="@android:color/white"
+                android:textSize="14sp" />
+
+            <!-- SeekBar -->
+            <SeekBar
+                android:id="@+id/seekBarMax"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:max="100"
+                android:progress="18"
+                android:paddingTop="24dp"/>
+        </RelativeLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Min"
+            android:textColor="@color/bright_white"/>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <!-- Bubble hiển thị giá trị -->
+            <TextView
+                android:id="@+id/bubbleMin"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:background="@drawable/button_background"
+                android:padding="7dp"
+                android:visibility="gone"
+                android:text="0"
+                android:textColor="@android:color/white"
+                android:textSize="14sp"
+                />
+
+            <!-- SeekBar -->
+            <SeekBar
+                android:id="@+id/seekBarMin"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:max="100"
+                android:paddingTop="24dp"
+                android:progress="18" />
+        </RelativeLayout>
+
         <Button
             android:id="@+id/changepass"
             android:layout_width="match_parent"
@@ -478,7 +618,8 @@
             app:backgroundTint="@null"
             android:textColor="@color/white"
             android:textStyle="bold"
-            android:padding="12dp" />
+            android:padding="12dp"
+            android:layout_marginTop="12dp"/>
 
         <!-- Sign Out Button -->
         <Button

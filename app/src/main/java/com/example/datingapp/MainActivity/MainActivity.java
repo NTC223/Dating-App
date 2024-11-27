@@ -83,7 +83,7 @@ public class MainActivity extends AppCompatActivity {
         mDislikeButton = findViewById(R.id.dislike);
         mLikeButton = findViewById(R.id.like);
 
-        checkUserSex();
+        checkUserShow();
 
         rowItems = new ArrayList<cards>();
 
@@ -193,9 +193,10 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    private String userSex;
-    private String oppositeUserSex;
-    public void checkUserSex(){
+    private String show;
+    private String notShow;
+    private int minAge, maxAge;
+    public void checkUserShow(){
         final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         DatabaseReference userDb = usersDb.child(user.getUid());
         userDb.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -203,17 +204,26 @@ public class MainActivity extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if(snapshot.getKey().equals(user.getUid())){
                     if(snapshot.exists()){
-                        if(snapshot.child("sex") != null){
-                            userSex = snapshot.child("sex").getValue().toString();
-                            switch (userSex){
+                        if(snapshot.child("show") != null){
+                            show = snapshot.child("show").getValue().toString();
+                            switch (show){
                                 case "Male":
-                                    oppositeUserSex = "Female";
+                                    notShow = "Female";
                                     break;
                                 case "Female":
-                                    oppositeUserSex = "Male";
+                                    notShow = "Male";
+                                    break;
+                                default:
+                                    notShow = "Everyone";
                                     break;
                             }
-                            getOppositeSexUsers();
+                            showUsers();
+                        }
+                        if(snapshot.child("minAge")!= null){
+                            minAge = Integer.parseInt(snapshot.child("minAge").getValue().toString());
+                        }
+                        if(snapshot.child("maxAge")!= null){
+                            maxAge = Integer.parseInt(snapshot.child("maxAge").getValue().toString());
                         }
                     }
                 }
@@ -226,12 +236,18 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    public void getOppositeSexUsers(){
+    public void showUsers(){
         usersDb.addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
                 if (snapshot.child("sex").getValue()!=null){
-                    if (snapshot.exists() && !snapshot.child("connections").child("nope").hasChild(currentUid) && !snapshot.child("connections").child("yeps").hasChild(currentUid) && snapshot.child("sex").getValue().toString().equals(oppositeUserSex)){
+                    if (snapshot.exists()
+                            && !snapshot.child("connections").child("nope").hasChild(currentUid)
+                            && !snapshot.child("connections").child("yeps").hasChild(currentUid)
+                            && !snapshot.child("sex").getValue().toString().equals(notShow)
+                            && !snapshot.getKey().equals(currentUid)
+                            && Integer.parseInt(snapshot.child("age").getValue().toString()) >= minAge
+                            && Integer.parseInt(snapshot.child("age").getValue().toString()) <= maxAge){
                         String profileImageUrl = "default";
                         if(!snapshot.child("profileImageUrl").getValue().equals("default")){
                             profileImageUrl = snapshot.child("profileImageUrl").getValue().toString();

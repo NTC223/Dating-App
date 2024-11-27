@@ -1,0 +1,41 @@
+D:.
+├───androidTest
+│   └───java
+│       └───com
+│           └───example
+│               └───datingapp
+├───main
+│   ├───java
+│   │   └───com
+│   │       └───example
+│   │           └───datingapp
+│   │               ├───Cards
+│   │               ├───Chat
+│   │               ├───LoginRegister
+│   │               ├───Matches
+│   │               ├───ProfileManagement
+│   │               └───UIHelper
+│   └───res
+│       ├───drawable
+│       │   └───.idea
+│       │       └───caches
+│       ├───layout
+│       ├───mipmap-anydpi-v26
+│       ├───mipmap-hdpi
+│       ├───mipmap-mdpi
+│       ├───mipmap-xhdpi
+│       ├───mipmap-xxhdpi
+│       ├───mipmap-xxxhdpi
+│       ├───navigation
+│       ├───values
+│       ├───values-land
+│       ├───values-night
+│       ├───values-v23
+│       ├───values-w1240dp
+│       ├───values-w600dp
+│       └───xml
+└───test
+    └───java
+        └───com
+            └───example
+                └───datingapp
