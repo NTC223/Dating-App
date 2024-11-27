@@ -82,12 +82,14 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Male"
+                android:textSize="17sp"
                 android:textColor="@color/bright_white"/>
 
             <RadioButton
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Female"
+                android:textSize="17sp"
                 android:textColor="@color/bright_white"/>
         </RadioGroup>
 
