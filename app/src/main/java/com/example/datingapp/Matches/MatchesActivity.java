@@ -268,13 +268,13 @@ public class   MatchesActivity extends AppCompatActivity {
         // Kiểm tra nếu năm khác với năm hiện tại
         SimpleDateFormat yearFormat = new SimpleDateFormat("yyyy", Locale.getDefault());
         if (!yearFormat.format(date).equals(yearFormat.format(currentDate))) {
-            SimpleDateFormat fullDateFormat = new SimpleDateFormat("dd 'thg' MM, yyyy", Locale.getDefault());
+            SimpleDateFormat fullDateFormat = new SimpleDateFormat("MMM d, yyyy", Locale.ENGLISH);
             return fullDateFormat.format(date);
         }
 
         // Nếu ngày đã quá 1 tuần, hiển thị theo định dạng "7 thg 11"
         if (daysDifference > 6) {
-            SimpleDateFormat dateFormat = new SimpleDateFormat("dd 'thg' MM", Locale.getDefault());
+            SimpleDateFormat dateFormat = new SimpleDateFormat("MMM d", Locale.ENGLISH);
             return dateFormat.format(date);
         }
 
@@ -283,7 +283,7 @@ public class   MatchesActivity extends AppCompatActivity {
         String dayOfWeek = dayFormat.format(date);
 
         // Chuyển đổi thành định dạng tiếng Việt
-        switch (dayOfWeek) {
+        /*switch (dayOfWeek) {
             case "Mon":
                 return "T2";
             case "Tue":
@@ -300,7 +300,8 @@ public class   MatchesActivity extends AppCompatActivity {
                 return "CN";
             default:
                 return "";
-        }
+        }*/
+        return dayOfWeek;
     }
 
     public static void sortMatchesByDate(List<MatchesObject> resultsMatches) {
