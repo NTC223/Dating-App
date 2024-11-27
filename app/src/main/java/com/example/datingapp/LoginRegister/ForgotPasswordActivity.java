@@ -41,14 +41,14 @@ public class ForgotPasswordActivity extends AppCompatActivity {
                 if(!TextUtils.isEmpty(mEmail)){
                     auth.sendPasswordResetEmail(mEmail).addOnCompleteListener(task -> {
                        if(task.isSuccessful()){
-                           Toast.makeText(ForgotPasswordActivity.this, "Email đặt lại mật khẩu đã được gửi.", Toast.LENGTH_SHORT).show();
+                           Toast.makeText(ForgotPasswordActivity.this, "Password reset email has been sent.", Toast.LENGTH_SHORT).show();
                             finish();
                        }else {
-                           Toast.makeText(ForgotPasswordActivity.this, "Không thể gửi email. Hãy thử lại.", Toast.LENGTH_SHORT).show();
+                           Toast.makeText(ForgotPasswordActivity.this, "Unable to send email. Please try again.", Toast.LENGTH_SHORT).show();
                        }
                     });
                 }else {
-                    Toast.makeText(ForgotPasswordActivity.this, "Hãy nhập email của bạn.", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(ForgotPasswordActivity.this, "HPlease enter your email.", Toast.LENGTH_SHORT).show();
                 }
             }
         });

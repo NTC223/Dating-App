@@ -62,34 +62,34 @@ public class ChangePasswordActivity extends AppCompatActivity {
                                         if (mNewPassword.equals(mConfirmNewPassword)){
                                             user.updatePassword(mNewPassword).addOnCompleteListener(task1 -> {
                                                 if (task1.isSuccessful()){
-                                                    Toast.makeText(ChangePasswordActivity.this, "Đổi mật khẩu thành công", Toast.LENGTH_SHORT).show();
+                                                    Toast.makeText(ChangePasswordActivity.this, "Password changed successfully!", Toast.LENGTH_SHORT).show();
                                                     auth.signOut();
                                                     Intent intent = new Intent(ChangePasswordActivity.this, LoginActivity.class);
                                                     intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                                                     startActivity(intent);
                                                     finish();
                                                 }else{
-                                                    Toast.makeText(ChangePasswordActivity.this, "Đổi mật khẩu thất bại", Toast.LENGTH_SHORT).show();
+                                                    Toast.makeText(ChangePasswordActivity.this, "Password change failed!", Toast.LENGTH_SHORT).show();
                                                 }
                                             });
                                         }else{
-                                            Toast.makeText(ChangePasswordActivity.this, "Xác nhận mật khẩu chưa chính xác", Toast.LENGTH_SHORT).show();
+                                            Toast.makeText(ChangePasswordActivity.this, "Password confirmation is incorrect!", Toast.LENGTH_SHORT).show();
                                         }
                                     }else {
-                                        Toast.makeText(ChangePasswordActivity.this, "Mật khẩu mới phải khác mật khẩu cũ", Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(ChangePasswordActivity.this, "The new password must be different from the old password.", Toast.LENGTH_SHORT).show();
                                     }
                                 }else {
-                                    Toast.makeText(ChangePasswordActivity.this, "Mật khẩu phải có tối thiểu 6 ký tự", Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(ChangePasswordActivity.this, "The password must be at least 6 characters.", Toast.LENGTH_SHORT).show();
                                 }
                             } else {
-                                Toast.makeText(ChangePasswordActivity.this, "Mật khẩu chưa chính xác", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(ChangePasswordActivity.this, "The password is incorrect!", Toast.LENGTH_SHORT).show();
                             }
                         });
                     }else {
-                        Toast.makeText(ChangePasswordActivity.this, "Hãy nhập đầy đủ thông tin", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(ChangePasswordActivity.this, "Please enter all the required information.", Toast.LENGTH_SHORT).show();
                     }
                 }else {
-                    Toast.makeText(ChangePasswordActivity.this, "Người dùng chưa đăng nhập!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(ChangePasswordActivity.this, "You are not logged in!", Toast.LENGTH_SHORT).show();
                 }
             }
         });
