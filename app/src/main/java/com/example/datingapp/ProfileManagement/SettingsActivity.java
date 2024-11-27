@@ -217,6 +217,7 @@ public class SettingsActivity extends AppCompatActivity {
         }
         Intent intent = new Intent(SettingsActivity.this, FullScreenImageActivity.class);
         intent.putExtra("imageUrl", imageurls.get(index));
+        intent.putExtra("activity", "setting");
         intent.putExtra("Uid", userId);
         intent.putExtra("imageName", mapKeys[index]);
         startActivity(intent);
@@ -288,10 +289,12 @@ public class SettingsActivity extends AppCompatActivity {
                     if(map.get("maxAge")!=null){
                         maxAge = map.get("maxAge").toString();
                         seekBarMax.setProgress(Integer.parseInt(maxAge));
+                        bubbleMax.setVisibility(View.GONE);
                     }
                     if(map.get("minAge")!=null){
                         minAge = map.get("minAge").toString();
                         seekBarMin.setProgress(Integer.parseInt(minAge));
+                        bubbleMin.setVisibility(View.GONE);
                     }
                     for (int i=0; i < imageViews.length; i++){
                         ImageView imageView = imageViews[i];

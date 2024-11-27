@@ -92,6 +92,7 @@ public class stalkActivity extends AppCompatActivity {
         }
         Intent intent = new Intent(stalkActivity.this, FullScreenImageActivity.class);
         intent.putExtra("imageUrl", imageurls.get(index));
+        intent.putExtra("activity", "stalk");
         startActivity(intent);
     }
 
