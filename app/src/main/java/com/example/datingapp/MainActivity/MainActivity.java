@@ -10,7 +10,6 @@ import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.Toast;
 
-//import androidx.activity.enableEdgeToEdge;
 import androidx.activity.result.ActivityResultCallback;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
@@ -44,9 +43,7 @@ import java.util.List;
 import java.util.Objects;
 
 public class MainActivity extends AppCompatActivity {
-    private cards cards_data[];
     private com.example.datingapp.Cards.arrayAdapter arrayAdapter;
-    private int i;
 
     private FirebaseAuth mAuth;
 
@@ -56,7 +53,6 @@ public class MainActivity extends AppCompatActivity {
 
     private ImageButton mDislikeButton, mLikeButton;
 
-    ListView listView;
     List<cards> rowItems;
 
     private final ActivityResultLauncher<String> activityResultLauncher = registerForActivityResult(new ActivityResultContracts.RequestPermission(), new ActivityResultCallback<Boolean>() {
@@ -126,7 +122,6 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
-        // Optionally add an OnItemClickListener
         flingContainer.setOnItemClickListener(new SwipeFlingAdapterView.OnItemClickListener() {
             @Override
             public void onItemClicked(int itemPosition, Object dataObject) {
