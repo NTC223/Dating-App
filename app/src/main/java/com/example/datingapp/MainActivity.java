@@ -24,6 +24,7 @@ import android.Manifest;
 import com.example.datingapp.Cards.arrayAdapter;
 import com.example.datingapp.Cards.cards;
 import com.example.datingapp.Matches.MatchesActivity;
+import com.example.datingapp.ProfileManagement.SettingsActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
