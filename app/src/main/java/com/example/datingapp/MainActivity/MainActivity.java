@@ -1,4 +1,4 @@
-package com.example.datingapp;
+package com.example.datingapp.MainActivity;
 
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -25,6 +25,7 @@ import com.example.datingapp.Cards.arrayAdapter;
 import com.example.datingapp.Cards.cards;
 import com.example.datingapp.Matches.MatchesActivity;
 import com.example.datingapp.ProfileManagement.SettingsActivity;
+import com.example.datingapp.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;

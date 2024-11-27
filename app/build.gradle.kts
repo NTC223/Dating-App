@@ -45,7 +45,6 @@ dependencies {
     implementation ("com.google.firebase:firebase-auth:18.0.0")
     implementation ("com.google.android.gms:play-services-gcm:17.0.0")
     implementation ("com.google.firebase:firebase-storage:21.0.1")
-    implementation ("com.google.firebase:firebase-analytics:21.5.0")
     implementation("com.github.bumptech.glide:glide:4.15.1")
 
     implementation("com.google.android.material:material:1.8.0")

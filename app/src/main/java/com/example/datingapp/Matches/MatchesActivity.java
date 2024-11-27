@@ -10,7 +10,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.datingapp.MainActivity;
+import com.example.datingapp.MainActivity.MainActivity;
 import com.example.datingapp.R;
 import com.example.datingapp.ProfileManagement.SettingsActivity;
 import com.google.firebase.auth.FirebaseAuth;

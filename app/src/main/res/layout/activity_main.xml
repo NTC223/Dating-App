@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:background="@color/black"
     android:paddingBottom="16dp"
-    tools:context=".MainActivity"
+    tools:context=".MainActivity.MainActivity"
     android:orientation="vertical">
 
 <!--  Header  -->
