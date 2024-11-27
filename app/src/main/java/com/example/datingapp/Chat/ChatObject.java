@@ -1,8 +1,5 @@
 package com.example.datingapp.Chat;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.Locale;
 
 public class ChatObject {
     public static final int TYPE_SEND = 1;

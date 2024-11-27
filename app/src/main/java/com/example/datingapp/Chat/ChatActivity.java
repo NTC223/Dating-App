@@ -13,7 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.datingapp.Matches.MatchesActivity;
 import com.example.datingapp.R;
-import com.example.datingapp.stalkActivity;
+import com.example.datingapp.ProfileManagement.stalkActivity;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
