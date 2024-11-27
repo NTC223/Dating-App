@@ -83,7 +83,7 @@ public class RegistationActivity extends AppCompatActivity {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if(!task.isSuccessful()){
-                            Toast.makeText(RegistationActivity.this, "sign up error", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(RegistationActivity.this, "Sign up error.", Toast.LENGTH_SHORT).show();
                         }else{
                             String userId = mAuth.getCurrentUser().getUid();
                             DatabaseReference currentUserDb = FirebaseDatabase.getInstance().getReference().child("Users").child(userId);

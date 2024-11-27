@@ -48,7 +48,7 @@ public class ForgotPasswordActivity extends AppCompatActivity {
                        }
                     });
                 }else {
-                    Toast.makeText(ForgotPasswordActivity.this, "HPlease enter your email.", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(ForgotPasswordActivity.this, "Please enter your email.", Toast.LENGTH_SHORT).show();
                 }
             }
         });

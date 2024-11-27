@@ -47,13 +47,13 @@ public class FullScreenImageActivity extends AppCompatActivity {
         StorageReference filepath = FirebaseStorage.getInstance().getReference().child("profileImages").child(userId).child(imageName);
         filepath.delete().addOnCompleteListener(task -> {
             if(task.isSuccessful()){
-                Toast.makeText(FullScreenImageActivity.this, "Đã xoá", Toast.LENGTH_SHORT).show();
+                Toast.makeText(FullScreenImageActivity.this, "Deleted.", Toast.LENGTH_SHORT).show();
                 mUserDatabase.child(imageName).setValue("default");
                 Intent intent = new Intent(FullScreenImageActivity.this, SettingsActivity.class);
                 startActivity(intent);
                 finish();
             }else {
-                Toast.makeText(FullScreenImageActivity.this, "Xoá thất bại", Toast.LENGTH_SHORT).show();
+                Toast.makeText(FullScreenImageActivity.this, "Delete failed!", Toast.LENGTH_SHORT).show();
 
             }
         });
