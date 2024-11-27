@@ -285,7 +285,6 @@ public class MainActivity extends AppCompatActivity {
     public void goToMatches(View view){
         Intent intent = new Intent(MainActivity.this, MatchesActivity.class);
         startActivity(intent);
-        finish();
         return;
     }
 }

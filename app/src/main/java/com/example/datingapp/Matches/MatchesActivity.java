@@ -60,8 +60,6 @@ public class   MatchesActivity extends AppCompatActivity {
         mBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(MatchesActivity.this, MainActivity.class);
-                startActivity(intent);
                 finish();
             }
         });
@@ -262,8 +260,6 @@ public class   MatchesActivity extends AppCompatActivity {
         return resultsMatches;
     }
     public void goHome(View view){
-        Intent intent = new Intent(MatchesActivity.this, MainActivity.class);
-        startActivity(intent);
         finish();
         return;
     }
