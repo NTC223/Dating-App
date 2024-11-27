@@ -22,7 +22,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.bumptech.glide.Glide;
-import com.example.datingapp.MainActivity;
+import com.example.datingapp.MainActivity.MainActivity;
 import com.example.datingapp.UIHelper.FullScreenImageActivity;
 import com.example.datingapp.LoginRegister.ChangePasswordActivity;
 import com.example.datingapp.LoginRegister.ChooseLoginOrRegistationActivity;
