@@ -217,6 +217,7 @@ public class SettingsActivity extends AppCompatActivity {
         }
         Intent intent = new Intent(SettingsActivity.this, FullScreenImageActivity.class);
         intent.putExtra("imageUrl", imageurls.get(index));
+        intent.putExtra("activity", "setting");
         intent.putExtra("Uid", userId);
         intent.putExtra("imageName", mapKeys[index]);
         startActivity(intent);

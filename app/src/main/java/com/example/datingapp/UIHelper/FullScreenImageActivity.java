@@ -3,6 +3,7 @@ package com.example.datingapp.UIHelper;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Toast;
 
@@ -17,12 +18,34 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
 public class FullScreenImageActivity extends AppCompatActivity {
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.full_size_image);
 
         ImageView fullImageView = findViewById(R.id.fullImageView);
+        Button deleteButton = findViewById(R.id.deleteButton);
+        Button back = findViewById(R.id.back);
+
+        String activity = getIntent().getExtras().getString("activity");
+
+        if (activity.equals("stalk")){
+            deleteButton.setVisibility(View.GONE);
+        }
+
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (activity.equals("stalk")){
+                    finish();
+                }else {
+                    Intent intent = new Intent(FullScreenImageActivity.this, SettingsActivity.class);
+                    startActivity(intent);
+                    finish();
+                }
+            }
+        });
 
         Glide.with(getApplication()).clear(fullImageView);
             String imageUrl = getIntent().getExtras().getString("imageUrl");
@@ -34,11 +57,6 @@ public class FullScreenImageActivity extends AppCompatActivity {
                     Glide.with(getApplication()).load(imageUrl).into(fullImageView);
                     break;
             }
-    }
-    public void goBack(View view){
-        Intent intent = new Intent(FullScreenImageActivity.this, SettingsActivity.class);
-        startActivity(intent);
-        finish();
     }
     public void deleteImage(View view){
         String userId = getIntent().getExtras().getString("Uid");
