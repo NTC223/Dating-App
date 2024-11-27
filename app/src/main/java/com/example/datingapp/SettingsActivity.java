@@ -334,6 +334,7 @@ public class SettingsActivity extends AppCompatActivity {
     public void logoutUser(View view){
         mAuth.signOut();
         Intent intent = new Intent(SettingsActivity.this, ChooseLoginOrRegistationActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);
         finish();
         return;
