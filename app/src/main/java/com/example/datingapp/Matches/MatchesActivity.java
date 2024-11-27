@@ -118,46 +118,7 @@ public class   MatchesActivity extends AppCompatActivity {
             }
         });
     }
-    /*private void FetchLastMessageAndDate(String userId, String name, String profileImageUrl, String chatId){
-        DatabaseReference chatDb = FirebaseDatabase.getInstance().getReference().child("Chat").child(chatId);
-        chatDb.orderByKey().limitToLast(1).addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                String date = "";
-                String text = "";
-                String createdByUser = "";
-                if (snapshot.exists() && snapshot.getChildren().iterator().hasNext()) {
-                    DataSnapshot lastMessageSnapShot = snapshot.getChildren().iterator().next();
 
-                    try {
-                        date = getDayOrDateString(lastMessageSnapShot.child("date").getValue().toString());
-                    } catch (ParseException e) {
-                        throw new RuntimeException(e);
-                    }
-                    date = " . " + date;
-                    text = lastMessageSnapShot.child("text").getValue().toString();
-                    createdByUser = lastMessageSnapShot.child("createdByUser").getValue().toString();
-                    if (createdByUser.equals(currentUserId)){
-                        System.out.println("1" + createdByUser);
-                        System.out.println("2" + currentUserId);
-                        text = "Bạn: " + text;
-                    }
-                    int remainingDistance = 33 - date.length();
-                    if(text.length() > remainingDistance)
-                        text = text.substring(0, remainingDistance - 3) + "... ";
-                }
-                MatchesObject obj = new MatchesObject(userId, name, profileImageUrl, text, date);
-                resultsMatches.add(obj);
-                sortMatchesByDate(resultsMatches);
-                mMatchesAdapter.notifyDataSetChanged();
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });
-    }*/
     private void FetchLastMessageAndDate(String userId, String name, String profileImageUrl, String chatId){
         DatabaseReference chatDb = FirebaseDatabase.getInstance().getReference().child("Chat").child(chatId);
 
@@ -274,25 +235,6 @@ public class   MatchesActivity extends AppCompatActivity {
         SimpleDateFormat dayFormat = new SimpleDateFormat("EEE", Locale.getDefault());
         String dayOfWeek = dayFormat.format(date);
 
-        // Chuyển đổi thành định dạng tiếng Việt
-        /*switch (dayOfWeek) {
-            case "Mon":
-                return "T2";
-            case "Tue":
-                return "T3";
-            case "Wed":
-                return "T4";
-            case "Thu":
-                return "T5";
-            case "Fri":
-                return "T6";
-            case "Sat":
-                return "T7";
-            case "Sun":
-                return "CN";
-            default:
-                return "";
-        }*/
         return dayOfWeek;
     }
 

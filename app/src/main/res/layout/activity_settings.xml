@@ -467,6 +467,96 @@
             </LinearLayout>
         </androidx.cardview.widget.CardView>
 
+        <RadioGroup
+            android:id="@+id/radioGroup"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:orientation="horizontal">
+            <RadioButton
+                android:id="@+id/male"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Male"
+                android:textColor="@color/bright_white"/>
+            <RadioButton
+                android:id="@+id/female"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Female"
+                android:textColor="@color/bright_white"/>
+            <RadioButton
+                android:id="@+id/everyone"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Everyone"
+                android:textColor="@color/bright_white"/>
+        </RadioGroup>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Max"
+            android:textColor="@color/bright_white"/>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <!-- Bubble hiển thị giá trị -->
+            <TextView
+                android:id="@+id/bubbleMax"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:background="@drawable/bubble_background"
+                android:padding="8dp"
+                android:visibility="gone"
+                android:text="0"
+                android:textColor="@android:color/white"
+                android:textSize="14sp" />
+
+            <!-- SeekBar -->
+            <SeekBar
+                android:id="@+id/seekBarMax"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:max="100"
+                android:progress="18" />
+        </RelativeLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="min"
+            android:textColor="@color/bright_white"/>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <!-- Bubble hiển thị giá trị -->
+            <TextView
+                android:id="@+id/bubbleMin"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:background="@drawable/bubble_background"
+                android:padding="8dp"
+                android:visibility="gone"
+                android:text="0"
+                android:textColor="@android:color/white"
+                android:textSize="14sp" />
+
+            <!-- SeekBar -->
+            <SeekBar
+                android:id="@+id/seekBarMin"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:max="100"
+                android:progress="18" />
+        </RelativeLayout>
+
         <Button
             android:id="@+id/changepass"
             android:layout_width="match_parent"

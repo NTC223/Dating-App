@@ -11,12 +11,18 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
+import android.widget.SeekBar;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.bumptech.glide.Glide;
+import com.example.datingapp.MainActivity;
 import com.example.datingapp.UIHelper.FullScreenImageActivity;
 import com.example.datingapp.LoginRegister.ChangePasswordActivity;
 import com.example.datingapp.LoginRegister.ChooseLoginOrRegistationActivity;
@@ -45,9 +51,13 @@ public class SettingsActivity extends AppCompatActivity {
     private EditText mNameField, mPhoneField, mAgeField, mEducationField, mPetField, mBioField, mLookingforField, mDrinkingSmokingField, mPersonalTypeField, mZodiacField;
     private LinearLayout imageContainer;
     private Button mConfirm, mBack, mExpandButton;
-
+    private RadioGroup mRadioGroup;
     private ImageView[] imageViews;
     private ImageView mProfileImage, mImage1, mImage2, mImage3, mImage4, mImage5, mImage6;
+    private SeekBar seekBarMax, seekBarMin;
+    private TextView bubbleMax, bubbleMin;
+    private String minAge, maxAge;
+
     private String[] mapKeys = {"profileImageUrl", "image1", "image2", "image3", "image4", "image5", "image6"};
     private int[] defaultImages = {R.mipmap.ic_launcher, R.drawable.image_placeholder, R.drawable.image_placeholder, R.drawable.image_placeholder, R.drawable.image_placeholder, R.drawable.image_placeholder, R.drawable.image_placeholder};
     private List<Uri> imageUris = new ArrayList<>();
@@ -57,7 +67,7 @@ public class SettingsActivity extends AppCompatActivity {
     private FirebaseAuth mAuth;
     private DatabaseReference mUserDatabase;
 
-    private String userId, name, phone, profileImageUrl, userSex, age, education, pet, bio, lookingfor, zodiac, drinkingSmoking, personalType;
+    private String userId, show, name, phone, profileImageUrl, userSex, age, education, pet, bio, lookingfor, zodiac, drinkingSmoking, personalType;
 
     private Uri resultUri;
 
@@ -76,6 +86,12 @@ public class SettingsActivity extends AppCompatActivity {
         mZodiacField = (EditText) findViewById(R.id.zodiac);
         mDrinkingSmokingField = (EditText) findViewById(R.id.drinkingSmoking);
         mPersonalTypeField = (EditText) findViewById(R.id.personalType);
+
+        mRadioGroup = (RadioGroup) findViewById(R.id.radioGroup);
+        seekBarMax = (SeekBar) findViewById(R.id.seekBarMax);
+        bubbleMax = (TextView) findViewById(R.id.bubbleMax);
+        seekBarMin = (SeekBar) findViewById(R.id.seekBarMin);
+        bubbleMin = (TextView) findViewById(R.id.bubbleMin);
 
         mProfileImage = (ImageView) findViewById(R.id.profileImage);
         mImage1 = (ImageView) findViewById(R.id.image1);
@@ -147,6 +163,52 @@ public class SettingsActivity extends AppCompatActivity {
                 return;
             }
         });
+
+        seekBarMax.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
+                bubbleMax.setVisibility(View.VISIBLE);
+                bubbleMax.setText(String.valueOf(i));
+                maxAge = String.valueOf(i);
+
+                float thumbOffset = seekBar.getThumb().getBounds().exactCenterX();
+                float position = seekBar.getX() + thumbOffset;
+                bubbleMax.setX(position - (bubbleMax.getWidth() / 2));
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+                bubbleMax.setVisibility(View.VISIBLE);
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+                bubbleMax.setVisibility(View.GONE);
+            }
+        });
+
+        seekBarMin.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
+                bubbleMin.setVisibility(View.VISIBLE);
+                bubbleMin.setText(String.valueOf(i));
+                minAge = String.valueOf(i);
+
+                float thumbOffset = seekBar.getThumb().getBounds().exactCenterX();
+                float position = seekBar.getX() + thumbOffset;
+                bubbleMin.setX(position - (bubbleMin.getWidth() / 2));
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+                bubbleMin.setVisibility(View.VISIBLE);
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+                bubbleMin.setVisibility(View.GONE);
+            }
+        });
     }
 
     private void showFullScreenImage(int index) {
@@ -210,6 +272,27 @@ public class SettingsActivity extends AppCompatActivity {
                     if(map.get("sex")!=null){
                         userSex = map.get("sex").toString();
                     }
+                    if(map.get("show")!=null){
+                        show = map.get("show").toString();
+                        switch (show){
+                            case "Male":
+                                mRadioGroup.check(R.id.male);
+                                break;
+                            case "Female":
+                                mRadioGroup.check(R.id.female);
+                                break;
+                            default:
+                                mRadioGroup.check(R.id.everyone);
+                        }
+                    }
+                    if(map.get("maxAge")!=null){
+                        maxAge = map.get("maxAge").toString();
+                        seekBarMax.setProgress(Integer.parseInt(maxAge));
+                    }
+                    if(map.get("minAge")!=null){
+                        minAge = map.get("minAge").toString();
+                        seekBarMin.setProgress(Integer.parseInt(minAge));
+                    }
                     for (int i=0; i < imageViews.length; i++){
                         ImageView imageView = imageViews[i];
                         String key = mapKeys[i];
@@ -235,6 +318,13 @@ public class SettingsActivity extends AppCompatActivity {
     }
 
     private void saveUserInformation(){
+        int selectId = mRadioGroup.getCheckedRadioButtonId();
+        if (selectId == -1){
+            show = "Everyone";
+        }else {
+            final RadioButton radioButton = (RadioButton) findViewById(selectId);
+            show = radioButton.getText().toString();
+        }
         name = mNameField.getText().toString();
         phone = mPhoneField.getText().toString();
         age = mAgeField.getText().toString();
@@ -256,9 +346,16 @@ public class SettingsActivity extends AppCompatActivity {
         userInfo.put("zodiac",zodiac);
         userInfo.put("personalType", personalType);
         userInfo.put("drinkingSmoking", drinkingSmoking);
+        userInfo.put("show", show);
+        userInfo.put("minAge", minAge);
+        userInfo.put("maxAge", maxAge);
         mUserDatabase.updateChildren(userInfo);
 
         uploadAllImages();
+        Toast.makeText(SettingsActivity.this,"Saved", Toast.LENGTH_SHORT).show();
+        Intent intent = new Intent(SettingsActivity.this, MainActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(intent);
         finish();
     }
 

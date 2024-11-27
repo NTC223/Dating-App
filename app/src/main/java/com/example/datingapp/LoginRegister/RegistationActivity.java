@@ -2,6 +2,7 @@ package com.example.datingapp.LoginRegister;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -28,7 +29,7 @@ import java.util.Map;
 public class RegistationActivity extends AppCompatActivity {
 
     private Button mRegister, mBack;
-    private EditText mEmail, mPassword ,mName;
+    private EditText mEmail, mPassword ,mName, mAge;
 
     private RadioGroup mRadioGroup;
 
@@ -61,6 +62,7 @@ public class RegistationActivity extends AppCompatActivity {
         mEmail = (EditText) findViewById(R.id.email);
         mPassword = (EditText) findViewById(R.id.password);
         mName = (EditText) findViewById(R.id.name);
+        mAge = (EditText) findViewById(R.id.age);
 
         mRadioGroup = (RadioGroup) findViewById(R.id.radioGroup);
 
@@ -68,17 +70,15 @@ public class RegistationActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 int selectId = mRadioGroup.getCheckedRadioButtonId();
-
-                final RadioButton radioButton = (RadioButton) findViewById(selectId);
-
-                if(radioButton.getText() == null){
-                    return;
-                }
-
                 final String email = mEmail.getText().toString().trim();
                 final String password = mPassword.getText().toString().trim();
                 final String name = mName.getText().toString().trim();
-
+                final String age = mAge.getText().toString().trim();
+                if (selectId == -1 || TextUtils.isEmpty(email) || TextUtils.isEmpty(password) || TextUtils.isEmpty(name) || TextUtils.isEmpty(age)){
+                    Toast.makeText(RegistationActivity.this,"Information must not be left blank.", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                final RadioButton radioButton = (RadioButton) findViewById(selectId);
                 mAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(RegistationActivity.this, new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
@@ -97,7 +97,7 @@ public class RegistationActivity extends AppCompatActivity {
                             userInfo.put("image4","default");
                             userInfo.put("image5","default");
                             userInfo.put("image6","default");
-                            userInfo.put("age","");
+                            userInfo.put("age",age);
                             userInfo.put("bio","");
                             userInfo.put("education","");
                             userInfo.put("lookingfor","");
@@ -105,6 +105,9 @@ public class RegistationActivity extends AppCompatActivity {
                             userInfo.put("zodiac", "");
                             userInfo.put("personalType", "");
                             userInfo.put("drinkingSmoking", "");
+                            userInfo.put("show", "Everyone");
+                            userInfo.put("minAge", "18");
+                            userInfo.put("maxAge", "23");
                             currentUserDb.updateChildren(userInfo);
                         }
                     }
