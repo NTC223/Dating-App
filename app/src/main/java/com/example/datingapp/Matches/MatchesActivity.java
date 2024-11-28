@@ -152,7 +152,7 @@ public class   MatchesActivity extends AppCompatActivity {
                         System.out.println(createdByUser);
                         System.out.println(currentUserId);
                         if (createdByUser.equals(currentUserId)){
-                            text = "Bạn: " + text;
+                            text = "You: " + text;
                         }
                         int remainingDistance = 33 - displayDate.length();
                         if(text.length() > remainingDistance)

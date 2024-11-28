@@ -98,8 +98,6 @@ public class ChatActivity extends AppCompatActivity {
         mBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(ChatActivity.this, MatchesActivity.class);
-                startActivity(intent);
                 finish();
             }
         });

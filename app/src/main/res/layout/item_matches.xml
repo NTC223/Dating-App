@@ -29,7 +29,8 @@
         android:textStyle="bold"
         app:layout_constraintTop_toTopOf="@+id/MatchImage"
         app:layout_constraintStart_toEndOf="@id/MatchImage"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/text"/>
 
     <TextView
         android:id="@+id/MatchId"
@@ -52,6 +53,7 @@
         android:id="@+id/text"
         android:textColor="@color/white"
         android:textStyle="bold"
+        android:textSize="16sp"
         app:layout_constraintLeft_toRightOf="@id/MatchImage"
         app:layout_constraintTop_toBottomOf="@id/MatchName"
         app:layout_constraintBottom_toBottomOf="@id/MatchImage"
@@ -64,6 +66,7 @@
         android:id="@+id/date"
         android:textColor="@color/secondary_text"
         android:textStyle="bold"
+        android:textSize="16sp"
         app:layout_constraintStart_toEndOf="@id/text"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@id/MatchName"
