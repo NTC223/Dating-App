@@ -500,51 +500,73 @@
             android:text="Show me"
             android:textColor="@color/bright_white"
             android:textSize="18sp"
-            android:layout_marginBottom="8dp"/>
-        <RadioGroup
-            android:id="@+id/radioGroup"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-            <RadioButton
-                android:id="@+id/male"
+            android:layout_marginBottom="8dp"
+            android:padding="11dp"
+            android:background="@drawable/rounded_bg"/>
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <RadioGroup
+                android:id="@+id/radioGroup"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Male"
-                android:textSize="17sp"
-                android:textColor="@color/bright_white"
-                android:layout_marginEnd="25dp"/>
-            <RadioButton
-                android:id="@+id/female"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Female"
-                android:textSize="17sp"
-                android:textColor="@color/bright_white"
-                android:layout_marginEnd="25dp"/>
-            <RadioButton
-                android:id="@+id/everyone"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Everyone"
-                android:textSize="17sp"
-                android:layout_weight="1"
-                android:textColor="@color/bright_white"
-                android:layout_marginEnd="25dp"/>
-        </RadioGroup>
+                android:orientation="horizontal"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent">
+
+                <RadioButton
+                    android:id="@+id/male"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Male"
+                    android:textSize="17sp"
+                    android:textColor="@color/bright_white"
+                    android:layout_marginEnd="25dp" />
+
+                <RadioButton
+                    android:id="@+id/female"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Female"
+                    android:textSize="17sp"
+                    android:textColor="@color/bright_white"
+                    android:layout_marginEnd="25dp" />
+
+                <RadioButton
+                    android:id="@+id/everyone"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Everyone"
+                    android:textSize="17sp"
+                    android:textColor="@color/bright_white" />
+
+            </RadioGroup>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
 
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Age Range"
             android:textColor="@color/bright_white"
             android:textSize="18sp"
-            android:paddingBottom="8dp"/>
+            android:paddingBottom="12dp"
+            android:padding="11dp"
+            android:background="@drawable/rounded_bg"/>
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Max"
-            android:textColor="@color/bright_white"/>
+            android:textColor="@color/bright_white"
+            android:textSize="17sp"
+            android:layout_marginTop="8dp"
+            android:layout_marginStart="8sp"/>
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -574,10 +596,12 @@
         </RelativeLayout>
 
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Min"
-            android:textColor="@color/bright_white"/>
+            android:textColor="@color/bright_white"
+            android:textSize="17sp"
+            android:layout_marginStart="8dp"/>
 
         <RelativeLayout
             android:layout_width="match_parent"

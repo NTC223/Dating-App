@@ -74,16 +74,35 @@ public class RegistationActivity extends AppCompatActivity {
                 final String password = mPassword.getText().toString().trim();
                 final String name = mName.getText().toString().trim();
                 final String age = mAge.getText().toString().trim();
+
                 if (selectId == -1 || TextUtils.isEmpty(email) || TextUtils.isEmpty(password) || TextUtils.isEmpty(name) || TextUtils.isEmpty(age)){
                     Toast.makeText(RegistationActivity.this,"Information must not be left blank.", Toast.LENGTH_SHORT).show();
                     return;
                 }
+                if (!age.isEmpty() && TextUtils.isDigitsOnly(age)) {
+                    int ageValue = Integer.parseInt(age);
+                    if (ageValue >= 18 && ageValue <= 100) {
+
+                    } else {
+                        Toast.makeText(RegistationActivity.this, "Please enter an age between 18 and 100.", Toast.LENGTH_SHORT).show();
+                        return;
+                    }
+                } else {
+                    Toast.makeText(RegistationActivity.this, "Please enter a valid numeric age.", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+                if (password.length() < 6){
+                    Toast.makeText(RegistationActivity.this,"The password must be at least 6 characters.", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
                 final RadioButton radioButton = (RadioButton) findViewById(selectId);
                 mAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(RegistationActivity.this, new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if(!task.isSuccessful()){
-                            Toast.makeText(RegistationActivity.this, "Sign up error.", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(RegistationActivity.this, "Email already exists. Please use a different email.", Toast.LENGTH_SHORT).show();
                         }else{
                             String userId = mAuth.getCurrentUser().getUid();
                             DatabaseReference currentUserDb = FirebaseDatabase.getInstance().getReference().child("Users").child(userId);
