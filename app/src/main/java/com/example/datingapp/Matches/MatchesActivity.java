@@ -154,7 +154,7 @@ public class   MatchesActivity extends AppCompatActivity {
                         if (createdByUser.equals(currentUserId)){
                             text = "You: " + text;
                         }
-                        int remainingDistance = 33 - displayDate.length();
+                        int remainingDistance = 31 - displayDate.length();
                         if(text.length() > remainingDistance)
                             text = text.substring(0, remainingDistance - 3) + "... ";
                     } else {
@@ -244,9 +244,33 @@ public class   MatchesActivity extends AppCompatActivity {
             @Override
             public int compare(MatchesObject m1, MatchesObject m2) {
                 try {
-                    Date date1 = dateFormat.parse(m1.getDate());
-                    Date date2 = dateFormat.parse(m2.getDate());
-                    return date2.compareTo(date1); // Descending order
+                    // Kiểm tra xem đối tượng m1 có ngày hợp lệ không (không phải chuỗi rỗng)
+                    Date date1 = null;
+                    if (m1.getDate() != null && !m1.getDate().isEmpty()) { // Kiểm tra nếu ngày không phải chuỗi rỗng
+                        date1 = dateFormat.parse(m1.getDate());
+                    }
+
+                    // Kiểm tra xem đối tượng m2 có ngày hợp lệ không (không phải chuỗi rỗng)
+                    Date date2 = null;
+                    if (m2.getDate() != null && !m2.getDate().isEmpty()) { // Kiểm tra nếu ngày không phải chuỗi rỗng
+                        date2 = dateFormat.parse(m2.getDate());
+                    }
+
+                    // Nếu m1 không có ngày hợp lệ (chuỗi rỗng), đặt m1 sau m2
+                    if (date1 == null && date2 != null) {
+                        return 1; // m1 ở sau m2
+                    }
+                    // Nếu m2 không có ngày hợp lệ (chuỗi rỗng), đặt m2 sau m1
+                    if (date2 == null && date1 != null) {
+                        return -1; // m2 ở sau m1
+                    }
+                    // Nếu cả hai có ngày hợp lệ, sắp xếp theo thứ tự giảm dần
+                    if (date1 != null && date2 != null) {
+                        return date2.compareTo(date1); // Descending order
+                    }
+
+                    return 0; // Nếu cả hai không có ngày hợp lệ (chuỗi rỗng), không thay đổi thứ tự
+
                 } catch (ParseException e) {
                     e.printStackTrace();
                     return 0;
@@ -254,6 +278,8 @@ public class   MatchesActivity extends AppCompatActivity {
             }
         });
     }
+
+
 
     private ArrayList<MatchesObject> resultsMatches = new ArrayList<MatchesObject>();
     private List<MatchesObject> getDataSetMatches() {
